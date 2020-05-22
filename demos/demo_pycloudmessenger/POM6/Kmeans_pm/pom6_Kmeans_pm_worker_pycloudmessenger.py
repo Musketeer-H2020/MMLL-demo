@@ -6,19 +6,21 @@ python pom6_Kmeans_pm_worker_pycloudmessenger.py --id 0 --dataset synth2D --verb
 
 '''
 import argparse
+import json
 # Add higher directory to python modules path.
 import sys
-sys.path.append("..")
-
-# To be imported from MMLL (pip installed)
+sys.path.append("../../../../")
 try:
     from MMLL.nodes.WorkerNode import WorkerNode
     from MMLL.common.MMLL_tools import display
     from MMLL.comms.comms_pycloudmessenger import Comms_worker as Comms
 except:
+    print('\n' + 80 * '#')
     print('You need to install the MMLL library')
     print('pip install git+https://github.com/Musketeer-H2020/MMLL.git')
+    print(80 * '#' + '\n')
     sys.exit()
+
 
 # To be imported from demo
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
@@ -44,7 +46,7 @@ if __name__ == "__main__":
     model_type = 'Kmeans_pm'
     dataset_name = FLAGS.dataset
 
-    logger = Logger('../results/logs/worker_' + str(worker_real_name) + '.log')
+    logger = Logger('./results/logs/worker_' + str(worker_real_name) + '.log')
     
     display('===========================================', logger, True)
     display('Creating Worker...', logger, True)
@@ -52,7 +54,17 @@ if __name__ == "__main__":
     # Note: this part creates the worker (participant) and it joins the task. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
     # ==================================================
-    credentials_filename = 'musketeer.json'
+    credentials_filename = '../../put_musketeer_credentials_in_this_folder/musketeer.json'
+    try:
+        with open(credentials_filename, 'r') as f:
+            credentials = json.load(f)
+    except:
+        print('\n' + '#' * 80)
+        print('The Musketeer credentials file is not available, please put it at:')
+        print('demos/demo_pycloudmessenger/put_musketeer_credentials_in_this_folder/')
+        print('#' * 80 + '\n')
+        sys.exit()
+
     tm = Task_Manager(credentials_filename)
     task_name = tm.get_current_task_name()
     # We need the participant to build comms object
@@ -70,7 +82,7 @@ if __name__ == "__main__":
     display('-------------------- Loading dataset %s --------------------------' % dataset_name, logger, True)
     # Warning: this data connector is only designed for the demos. In Musketeer, appropriate data
     # connectors must be provided
-    data_file = '../input_data/' + dataset_name + '_demonstrator_data.pkl'
+    data_file = '../../../../input_data/' + dataset_name + '_demonstrator_data.pkl'
     dc = DC(data_file)
     [Xtr, ytr] = dc.get_data_train_Worker(int(worker_real_name[0]))
     wn.set_training_data(dataset_name, Xtr, ytr)

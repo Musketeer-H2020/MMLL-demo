@@ -7,17 +7,20 @@ python3 pom6_Kmeans_pm_master_pycloudmessenger.py --dataset synth2D --verbose 1
 '''
 import argparse
 import time
-# Add higher directory to python modules path.
-import sys
-sys.path.append("..")
+import json
+import sys, os
 
+# Add higher directory to python modules path.
+sys.path.append("../../../../")
 try:
     from MMLL.nodes.MasterNode import MasterNode
     from MMLL.common.MMLL_tools import display
     from MMLL.comms.comms_pycloudmessenger import Comms_master as Comms
 except:
+    print('\n' + 80 * '#')
     print('You need to install the MMLL library')
     print('pip install git+https://github.com/Musketeer-H2020/MMLL.git')
+    print(80 * '#' + '\n')
     sys.exit()
 
 # To be imported from demo_tools (remove from MMLL...)
@@ -38,7 +41,7 @@ if __name__ == "__main__":
         verbose = False
 
     # Logging is optional, if you do not want to log messages, simply set logger=None
-    logger = Logger('../results/logs/Master.log')
+    logger = Logger('./results/logs/Master.log')
 
     pom = 6
     Nworkers = 5
@@ -51,7 +54,17 @@ if __name__ == "__main__":
     # ==================================================
     # Note: this part creates the task and waits for the workers to join. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
-    credentials_filename = 'musketeer.json'
+    credentials_filename = '../../put_musketeer_credentials_in_this_folder/musketeer.json'
+    try:
+        with open(credentials_filename, 'r') as f:
+            credentials = json.load(f)
+    except:
+        print('\n' + '#' * 80)
+        print('The Musketeer credentials file is not available, please put it at:')
+        print('demos/demo_pycloudmessenger/put_musketeer_credentials_in_this_folder/')
+        print('#' * 80 + '\n')
+        sys.exit()
+
     tm = Task_Manager(credentials_filename)
     # We need the aggregator to build comms object
     aggregator = tm.create_master_random_taskname(pom, Nworkers, user_org='UC3M')   
@@ -69,7 +82,7 @@ if __name__ == "__main__":
     display('-------------------- Loading dataset %s --------------------------' % dataset_name, logger, True)
     # Warning: this data connector is only designed for the demos. In Musketeer, appropriate data
     # connectors must be provided
-    data_file = '../input_data/' + dataset_name + '_demonstrator_data.pkl'
+    data_file = '../../../../input_data/' + dataset_name + '_demonstrator_data.pkl'
     dc = DC(data_file)
     [Xval, yval] = dc.get_data_val()
     mn.set_validation_data(dataset_name, Xval, yval)
@@ -102,7 +115,8 @@ if __name__ == "__main__":
     model = mn.get_model()
     
     # Warning: this save_model utility is only for demo purposes
-    mn.save_model()
+    output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pkl'
+    mn.save_model(output_filename_model)
 
     display('-------------  Evaluating --------------------------------------------\n', logger, True)
     # Warning, these evaluation methods are not part of the MMLL library, they are only intended

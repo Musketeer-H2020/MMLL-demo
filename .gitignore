@@ -130,3 +130,8 @@ dmypy.json
 
 # datasets
 input_data/
+
+# credentials
+*musketeer.json*
+
+
