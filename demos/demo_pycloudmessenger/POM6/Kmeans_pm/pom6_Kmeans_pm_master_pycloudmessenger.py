@@ -23,7 +23,6 @@ except:
     print(80 * '#' + '\n')
     sys.exit()
 
-# To be imported from demo_tools (remove from MMLL...)
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector

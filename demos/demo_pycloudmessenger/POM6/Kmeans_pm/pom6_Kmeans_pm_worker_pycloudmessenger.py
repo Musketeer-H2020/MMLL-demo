@@ -7,9 +7,10 @@ python pom6_Kmeans_pm_worker_pycloudmessenger.py --id 0 --dataset synth2D --verb
 '''
 import argparse
 import json
-# Add higher directory to python modules path.
 import sys
+# Add higher directory to python modules path.
 sys.path.append("../../../../")
+
 try:
     from MMLL.nodes.WorkerNode import WorkerNode
     from MMLL.common.MMLL_tools import display
@@ -21,8 +22,8 @@ except:
     print(80 * '#' + '\n')
     sys.exit()
 
-
-# To be imported from demo
+# Add higher directory to python modules path.
+sys.path.append("../../../../")
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector
