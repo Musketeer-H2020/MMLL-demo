@@ -78,6 +78,41 @@ class Task_Manager:
         #return context_master, task_name
         return self.aggregator
 
+
+    def create_master_and_taskname(self, display, logger, task_definition, user_name=None, user_password='Tester', task_name='Test', user_org='TREE', verbose=False):
+        self.task_name = task_name
+        self.Nworkers = task_definition['quorum']
+        config = 'cloud'
+
+        # Create context for the cloud communications
+        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
+        context = ffl.Factory.context(config, self.credentials_filename)
+
+        # Create user
+        ffl_user = ffl.Factory.user(context)
+        with ffl_user:
+            try:
+                ffl_user.create_user(user_name, user_password, user_org)
+                display('User %s has registered in pycloudmessenger platform!' %user_name, logger, verbose)
+            except Exception as err:
+                display('The user %s is already registered in pycloudmessenger platform.' %user_name, logger, verbose)
+        context = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder=serializer.Base64Serializer)
+
+        try:
+            user = ffl.Factory.user(context)
+            with user:
+                import json
+                result = user.create_task(task_name, ffl.Topology.star, task_definition)
+                task_definition = json.loads(user.task_info(task_name)['definition'])
+        except Exception as err:
+            display('Error: %s' %err, logger, verbose)
+            import sys
+            sys.exit()
+ 
+        self.aggregator = ffl.Factory.aggregator(context, task_name=task_name)
+        return self.aggregator
+
+
     def get_current_task_name(self):
         task_available = False
         while not task_available:
@@ -129,6 +164,39 @@ class Task_Manager:
         
         return participant
 
+
+    def create_worker_and_join_task(self, user_name, user_password, task_name, display, logger, user_org='TREE', verbose=False):
+        config = 'cloud'
+
+        # Create context for the cloud communications
+        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
+        context = ffl.Factory.context(config, self.credentials_filename)
+
+        # Create user
+        ffl_user = ffl.Factory.user(context)
+        with ffl_user:
+            try:
+                ffl_user.create_user(user_name, user_password, user_org)
+                display('User %s has registered in pycloudmessenger platform!' %user_name, logger, verbose)
+            except Exception as err:
+                display('The user %s is already registered in pycloudmessenger platform.' %user_name, logger, verbose)
+        context = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder=serializer.Base64Serializer)
+
+        # Join task
+        try:
+            user = ffl.Factory.user(context)
+            with user:
+                user.join_task(task_name)
+        except Exception as err:
+            import sys
+            display('Error: %s' %err, logger, verbose)
+            sys.exit()
+
+        # Create the comms object
+        participant = ffl.Factory.participant(context, task_name=task_name)
+        return participant
+
+
     def wait_for_workers(self):
 
         stop = False
@@ -154,3 +222,33 @@ class Task_Manager:
 
         workers = self.aggregator.get_participants()
         return list(workers.keys())
+
+
+    def wait_for_workers_to_join(self, display, logger, verbose=False):
+        """
+        Wait for workers to join until quorum is met.
+        """
+        with self.aggregator:
+            workers = self.aggregator.get_participants()
+
+        if workers:
+            if len(workers) == self.Nworkers:
+                display('Participants have already joined', logger, verbose)
+                return workers
+
+        display('Waiting for workers to join (%d of %d present)' %(len(workers), self.Nworkers), logger, verbose)
+
+        ready = False
+        while not ready:
+            try:
+                with self.aggregator:
+                    resp = self.aggregator.receive(300)
+                    participant = resp.notification['participant']
+                display('Participant %s joined' %participant, logger, verbose)
+            except Exception as err:
+                raise err
+
+            if len(workers) == self.Nworkers:
+                ready = True
+
+        return workers
