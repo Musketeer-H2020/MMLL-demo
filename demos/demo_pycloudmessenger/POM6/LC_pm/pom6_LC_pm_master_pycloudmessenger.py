@@ -48,6 +48,14 @@ if __name__ == "__main__":
     if not os.path.exists("./results/models/"):
         os.makedirs("./results/models/") # Create directory for the models
 
+    credentials_filename = '../../musketeer.json'
+    try:
+        with open(credentials_filename, 'r') as f:
+            credentials = json.load(f)
+    except:
+        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
+        sys.exit()
+
     # Logging is optional, if you do not want to log messages, simply set logger=None
     logger = Logger('./results/logs/Master.log')
 
@@ -63,14 +71,6 @@ if __name__ == "__main__":
     # Note: this part creates the task and waits for the workers to join. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
     
-    credentials_filename = '../../musketeer.json'
-    try:
-        with open(credentials_filename, 'r') as f:
-            credentials = json.load(f)
-    except:
-        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
-        sys.exit()
-
     tm = Task_Manager(credentials_filename)
     # We need the aggregator to build comms object
     aggregator = tm.create_master_random_taskname(pom, Nworkers, user_org='UC3M')   
