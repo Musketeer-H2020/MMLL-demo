@@ -2,6 +2,8 @@
 
 Demonstrations of the [Musketeer Machine Learning Library (MMLL)](https://github.com/Musketeer-H2020/MMLL) using [Musketeer's pycloudmessenger](https://github.com/IBM/pycloudmessenger/)
 
+The pycloudmessenger requires a credentials filename to access to the service. Please, place the `musketeer.json` credentials at the `demos/demo_pycloudmessenger/`folder.
+
 ## Content
 
 ### POM1:
