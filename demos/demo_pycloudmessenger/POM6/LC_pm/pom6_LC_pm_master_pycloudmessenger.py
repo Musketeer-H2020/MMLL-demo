@@ -2,7 +2,7 @@
 '''
 @author:  Angel Navia Vázquez
 May 2020
-python3 pom6_Kmeans_pm_master_pycloudmessenger.py --dataset synth2D --verbose 1
+python3 pom6_LC_pm_master_pycloudmessenger.py --dataset pima --verbose 1
 
 '''
 import argparse
@@ -27,7 +27,7 @@ except:
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector
-from demo_tools.evaluation_tools import eval_clustering
+from demo_tools.evaluation_tools import eval_classification
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     pom = 6
     Nworkers = 5
-    model_type = 'Kmeans_pm'
+    model_type = 'LC_pm'
     dataset_name = FLAGS.dataset
     
     display('===========================================', logger, True)
@@ -54,15 +54,13 @@ if __name__ == "__main__":
     # ==================================================
     # Note: this part creates the task and waits for the workers to join. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
-    credentials_filename = '../../put_musketeer_credentials_in_this_folder/musketeer.json'
+    
+    credentials_filename = '../../musketeer.json'
     try:
         with open(credentials_filename, 'r') as f:
             credentials = json.load(f)
     except:
-        print('\n' + '#' * 80)
-        print('The Musketeer credentials file is not available, please put it at:')
-        print('demos/demo_pycloudmessenger/put_musketeer_credentials_in_this_folder/')
-        print('#' * 80 + '\n')
+        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
         sys.exit()
 
     tm = Task_Manager(credentials_filename)
@@ -97,9 +95,10 @@ if __name__ == "__main__":
     # Parameters depending on the model_type
     ########################################
     model_parameters = {}
+    model_parameters.update({'regularization': 0.001})
     model_parameters.update({'Nmaxiter': 10})
-    model_parameters.update({'NC': 8})
     model_parameters.update({'conv_stop': 0.005})
+
     mn.create_model_Master(model_type, model_parameters=model_parameters)
     display('MMLL model %s is ready for training!' % model_type, logger, True)
 
@@ -121,11 +120,27 @@ if __name__ == "__main__":
     display('-------------  Evaluating --------------------------------------------\n', logger, True)
     # Warning, these evaluation methods are not part of the MMLL library, they are only intended
     # to be used for the demos. Use them at your own risk.   
-    eval_clustering(pom, model_type, dataset_name, mn.Xtst_b, model.c, logger, verbose)
+
+    # Adding bias...
+    mn.Xval_b = mn.add_bias(mn.Xval_b)
+    mn.Xtst_b = mn.add_bias(mn.Xtst_b)
 
     display('-------------  Obtaining predictions------------------------------------\n', logger, True)
-    preds = model.predict(mn.Xtst_b)
-    
+    try:
+        preds_tst = model.predict(mn.Xtst_b)
+    except:
+        preds_tst = None
+        print('ERROR while computing predictions on test data')
+
+    try:
+        preds_val = model.predict(mn.Xval_b)
+    except:
+        preds_val = None
+        print('ERROR while computing predictions on validation data')
+
+    figures_folder = './results/figures/'
+    roc_auc_val, roc_auc_tst = eval_classification(pom, model_type, dataset_name, mn.Xval_b, mn.yval, mn.Xtst_b, mn.ytst, preds_val, preds_tst, logger, verbose, mn, figures_folder)
+
     display('Terminating all worker nodes.', logger, True)
     mn.terminate_Workers()
 

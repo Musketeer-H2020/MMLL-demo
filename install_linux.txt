@@ -1,0 +1,20 @@
+=====================================================================================
+	Install instructions under Linux OS
+=====================================================================================
+
+- It is adviceable to install a python distribution like Anaconda (Python 3.7). Please proceeed to the Anaconda download page (https://www.anaconda.com/distribution/) and follow the instructions according to your Operative System
+
+- Once Anaconda is correctly installed, open a bash/dash terminal and execute the following commands:
+
+conda update conda
+
+conda update anaconda
+
+- Next, we create a conda environment with all the required libraries:
+
+conda create --name demo python=3.7.4 numpy=1.16.4 matplotlib seaborn pandas scikit-learn transitions=0.6.9 pygraphviz=1.5 Keras=2.2.4 tensorflow=1.14.0 pika=0.13.0 -c defaults -c conda-forge --yes
+
+conda activate demo
+
+You may need some assistance from a System Manager if you fail to install the Python required libraries.
+

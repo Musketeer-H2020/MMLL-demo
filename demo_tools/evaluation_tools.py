@@ -74,7 +74,7 @@ def eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, p
         plt.title(model_type + ' estimation (validation set)')
         plt.grid(True)
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_val.png'
+        output_filename = './results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_val.png'
         plt.savefig(output_filename)
         display('===================================================================', logger, verbose)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
@@ -93,7 +93,7 @@ def eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, p
         plt.title(model_type + ' estimation (test set)')
         plt.grid(True)
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_tst.png'
+        output_filename = './results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_tst.png'
         plt.savefig(output_filename)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
         display('===================================================================\n', logger, verbose)
@@ -113,7 +113,7 @@ def eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, p
         plt.title('Sorted Predictions and Targets (validation set)')
         plt.grid(True)
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_' + model_type + '_preds_' + dataset_name + '_val.png'
+        output_filename = './results/figures/POM' + str(pom) + '_' + model_type + '_preds_' + dataset_name + '_val.png'
         plt.savefig(output_filename)
         display('===================================================================', logger, verbose)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
@@ -131,13 +131,13 @@ def eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, p
         plt.title('Sorted Predictions and Targets (test set)')
         plt.grid(True)
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_' + model_type + '_preds_' + dataset_name + '_tst.png'
+        output_filename = './results/figures/POM' + str(pom) + '_' + model_type + '_preds_' + dataset_name + '_tst.png'
         plt.savefig(output_filename)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
         display('===================================================================\n', logger, verbose)
     return
 
-def eval_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, verbose, mn, output_folder='../results/figures/'):
+def eval_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, verbose, mn, output_folder='./results/figures/'):
     roc_auc_val = None
     if preds_val is not None:
         fpr_val, tpr_val, thresholds_val = roc_curve(list(yval), preds_val)
@@ -250,7 +250,7 @@ def eval_clustering(pom, model_type, dataset_name, Xtst_b, c, logger, verbose):
         plt.title(model_type + ' clustering')
         plt.grid(True)
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_clusters_' + model_type + '_' + dataset_name + '.png'
+        output_filename = './results/figures/POM' + str(pom) + '_clusters_' + model_type + '_' + dataset_name + '.png'
         plt.savefig(output_filename)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
 
@@ -265,7 +265,7 @@ def eval_clustering(pom, model_type, dataset_name, Xtst_b, c, logger, verbose):
         plt.title(model_type + ' clustering')
         plt.grid(True)
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_clusters_' + model_type + '_' + dataset_name + '.png'
+        output_filename = './results/figures/POM' + str(pom) + '_clusters_' + model_type + '_' + dataset_name + '.png'
         plt.savefig(output_filename)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
 
@@ -282,12 +282,12 @@ def eval_clustering(pom, model_type, dataset_name, Xtst_b, c, logger, verbose):
             ax.imshow(digit, cmap='viridis')
         plt.tight_layout()
         #plt.show()
-        output_filename = '../results/figures/POM' + str(pom) + '_clusters_' + model_type + '_' + dataset_name + '.png'
+        output_filename = './results/figures/POM' + str(pom) + '_clusters_' + model_type + '_' + dataset_name + '.png'
         plt.savefig(output_filename)
         display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
 
     # saving centroids in all cases
-    output_filename_c = '../results/models/POM' + str(pom) + '_C_' + model_type + '_' + dataset_name + '.pkl'
+    output_filename_c = './results/models/POM' + str(pom) + '_C_' + model_type + '_' + dataset_name + '.pkl'
     with open(output_filename_c, 'wb') as f:
         pickle.dump(c, f)
 
@@ -313,7 +313,7 @@ def eval_xcorr(pom, model_type, dataset_name, list_self_corrs, list_cross_corrs,
     #locs, labels = plt.xticks()
 
     plt.grid(True)
-    output_filename = '../results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_selfcorr.png'
+    output_filename = './results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_selfcorr.png'
     plt.savefig(output_filename)
     display('\n===================================================================', logger, verbose)
     display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
@@ -331,7 +331,7 @@ def eval_xcorr(pom, model_type, dataset_name, list_self_corrs, list_cross_corrs,
     plt.ylabel('Correlation')
     plt.xticks(x, labels)
     plt.grid(True)
-    output_filename = '../results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_crosscorr.png'
+    output_filename = './results/figures/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_crosscorr.png'
     plt.savefig(output_filename)
     display('Master_' + model_type + ':saved figure in %s' % output_filename, logger, verbose)
     display('===================================================================\n', logger, verbose)
@@ -357,7 +357,7 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
     plt.legend(loc="best")
     plt.grid(True)
     #plt.show()
-    output_filename = '../results/figures/POM_' + str(pom) + '_ROC_' + model_type + '_' + dataset_name + '_val.png'
+    output_filename = './results/figures/POM_' + str(pom) + '_ROC_' + model_type + '_' + dataset_name + '_val.png'
     plt.savefig(output_filename)
     display('Master_' + model_type + ':saved figure at %s' % output_filename, logger, verbose)
 
@@ -380,7 +380,7 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
     plt.legend(loc="best")
     plt.grid(True)
     #plt.show()
-    output_filename = '../results/figures/POM_' + str(pom) + '_ROC_' + model_type + '_' + dataset_name + '_tst.png'
+    output_filename = './results/figures/POM_' + str(pom) + '_ROC_' + model_type + '_' + dataset_name + '_tst.png'
     plt.savefig(output_filename)
     display('Master_' + model_type + ':saved figure at %s' % output_filename, logger, verbose)
 
@@ -403,7 +403,7 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
     plt.xlabel('True values')
     plt.ylabel('Predicted values')
     plt.title('Confussion matrix for ' + dataset_name + ', validation set.')
-    output_filename = '../results/figures/POM_' + str(pom) + '_CM_' + model_type + '_' + dataset_name + '_val.png'
+    output_filename = './results/figures/POM_' + str(pom) + '_CM_' + model_type + '_' + dataset_name + '_val.png'
     plt.savefig(output_filename)
     display('Master_' + model_type + ':saved figure at %s' % output_filename, logger, verbose)
 
@@ -413,7 +413,7 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
     plt.xlabel('True values')
     plt.ylabel('Predicted values')
     plt.title('Confussion matrix for ' + dataset_name + ', test set.')
-    output_filename = '../results/figures/POM_' + str(pom) + '_CM_' + model_type + '_' + dataset_name + '_tst.png'
+    output_filename = './results/figures/POM_' + str(pom) + '_CM_' + model_type + '_' + dataset_name + '_tst.png'
     plt.savefig(output_filename)
     display('Master_' + model_type + ':saved figure at %s' % output_filename, logger, verbose)
     display('===================================================================\n', logger, verbose)
@@ -436,3 +436,27 @@ def Kmeans_plot(X, preds, title, model_type, dataset_name, logger, verbose):
         plt.savefig(output_filename)
     except:
         display('Model not correctly trained, not drawing', logger, verbose)
+
+
+
+def plot_cm_seaborn(preds, y, classes, title, model_type, dataset_name, logger, verbose, normalize=False, cmap=plt.cm.GnBu):
+    cnf_matrix = confusion_matrix(y, preds)
+
+    if normalize:
+        cnf_matrix = cnf_matrix.astype('float') / cnf_matrix.sum(axis=1)[:, np.newaxis]
+        fmt = '.2f'
+    else:
+        fmt = 'd'        
+        
+    df = pd.DataFrame(cnf_matrix, columns=classes, index=classes)
+    plt.figure(figsize = (10, 8))
+    ax = sn.heatmap(df, annot=True, cmap=cmap, linewidths=.5, cbar=False, fmt=fmt)
+    bottom, top = ax.get_ylim()
+    ax.set_ylim(bottom + 0.5, top - 0.5)
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.title(title)
+    output_filename = '../results/figures/' + model_type + '_confusion_matrix_' + dataset_name + '.png'
+    plt.savefig(output_filename)
+
+
