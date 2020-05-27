@@ -86,12 +86,12 @@ if __name__ == "__main__":
     # Note: this part creates the worker (participant) and it joins the task. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
     # ==================================================
-    credentials_filename = '../../put_musketeer_credentials_in_this_folder/musketeer.json'
+    credentials_filename = '../../musketeer.json'
     try:
         with open(credentials_filename, 'r') as f:
             credentials = json.load(f)
     except:
-        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../put_musketeer_credentials_in_this_folder/")) + '"', logger, verbose)
+        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
         sys.exit()
 
     tm = Task_Manager(credentials_filename)
@@ -140,7 +140,8 @@ if __name__ == "__main__":
     model = wn.get_model()
     
     # Warning: this save_model utility is only for demo purposes
-    wn.save_model()
+    output_filename_model = '../results/models/POM' + str(pom) + '_' + model_type + '_worker_' + dataset_name + '_model.pkl'
+    wn.save_model(output_filename_model)
 
     display('-------------  Obtaining predictions------------------------------------\n', logger, verbose)
     preds_tst = model.predict(Xtst)
