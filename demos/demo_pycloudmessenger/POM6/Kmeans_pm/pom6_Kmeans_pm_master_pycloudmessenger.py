@@ -13,6 +13,12 @@ import sys, os
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
 
+'''
+from MMLL.nodes.MasterNode import MasterNode
+from MMLL.common.MMLL_tools import display
+from MMLL.comms.comms_pycloudmessenger import Comms_master as Comms
+
+'''
 try:
     from MMLL.nodes.MasterNode import MasterNode
     from MMLL.common.MMLL_tools import display
@@ -40,6 +46,14 @@ if __name__ == "__main__":
     else:
         verbose = False
 
+    # Create the directories for storing relevant outputs if they do not exist
+    if not os.path.exists("./results/logs/"):
+        os.makedirs("./results/logs/") # Create directory for the logs
+    if not os.path.exists("./results/figures/"):
+        os.makedirs("./results/figures/") # Create directory for the figures
+    if not os.path.exists("./results/models/"):
+        os.makedirs("./results/models/") # Create directory for the models
+
     # Logging is optional, if you do not want to log messages, simply set logger=None
     logger = Logger('./results/logs/Master.log')
 
@@ -54,16 +68,15 @@ if __name__ == "__main__":
     # ==================================================
     # Note: this part creates the task and waits for the workers to join. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
-    credentials_filename = '../../put_musketeer_credentials_in_this_folder/musketeer.json'
+    
+    credentials_filename = '../../musketeer.json'
     try:
         with open(credentials_filename, 'r') as f:
             credentials = json.load(f)
     except:
-        print('\n' + '#' * 80)
-        print('The Musketeer credentials file is not available, please put it at:')
-        print('demos/demo_pycloudmessenger/put_musketeer_credentials_in_this_folder/')
-        print('#' * 80 + '\n')
+        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
         sys.exit()
+
 
     tm = Task_Manager(credentials_filename)
     # We need the aggregator to build comms object

@@ -40,6 +40,14 @@ if __name__ == "__main__":
     else:
         verbose = False
 
+    # Create the directories for storing relevant outputs if they do not exist
+    if not os.path.exists("./results/logs/"):
+        os.makedirs("./results/logs/") # Create directory for the logs
+    if not os.path.exists("./results/figures/"):
+        os.makedirs("./results/figures/") # Create directory for the figures
+    if not os.path.exists("./results/models/"):
+        os.makedirs("./results/models/") # Create directory for the models
+
     # Logging is optional, if you do not want to log messages, simply set logger=None
     logger = Logger('./results/logs/Master.log')
 
