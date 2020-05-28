@@ -22,6 +22,7 @@ import sys, os
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
+os.environ['KMP_WARNINGS'] = 'off' # Remove KMP_AFFINITY logs
 
 # To be imported from MMLL (pip installed)
 from MMLL.nodes.MasterNode import MasterNode
