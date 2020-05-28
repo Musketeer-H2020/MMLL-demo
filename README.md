@@ -28,6 +28,8 @@ Please visit every subfolder in `demo/demo_pycloudmessenger/` for a detailed exp
 
 If you encounter any difficulties in the installation of some of the dependencies, please refer to the `install` instructions in this repository.
 
+* Requirements Note: if you do not use conda to install and use pip instead, you may need to run `pip install requirements.txt` 
+
 ## Input data
 
 The datasets needed to run these demos are located at [IBM Box](https://ibm.box.com/s/l8yzdbdb40j499o513hygx5q85xyoz6v). Please, download and place them in your local `input_data/` folder. 
