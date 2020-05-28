@@ -40,6 +40,9 @@ if __name__ == "__main__":
     else:
         verbose = False
 
+    # Logging is optional, if you do not want to log messages, simply set logger=None
+    logger = Logger('./results/logs/Master.log')
+
     # Create the directories for storing relevant outputs if they do not exist
     if not os.path.exists("./results/logs/"):
         os.makedirs("./results/logs/") # Create directory for the logs
@@ -55,9 +58,6 @@ if __name__ == "__main__":
     except:
         display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
         sys.exit()
-
-    # Logging is optional, if you do not want to log messages, simply set logger=None
-    logger = Logger('./results/logs/Master.log')
 
     pom = 6
     Nworkers = 5
