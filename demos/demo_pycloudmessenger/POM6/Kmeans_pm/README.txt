@@ -19,4 +19,3 @@ python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --id 1 --dataset synth2D --ver
 python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --id 2 --dataset synth2D --verbose 1 
 python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --id 3 --dataset synth2D --verbose 1 
 python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --id 4 --dataset synth2D --verbose 1 
-
