@@ -4,7 +4,7 @@
 
 - It is adviceable to install a python distribution like Anaconda (Python 3.7). Please proceeed to the Anaconda download page (https://www.anaconda.com/distribution/) and follow the instructions according to your Operative System
 
-- Once Anaconda is correctly installed, open a bash/dash terminal and execute the following commands:
+- Once Anaconda is correctly installed, open a zshell terminal and execute the following commands:
 
 conda update conda
 
