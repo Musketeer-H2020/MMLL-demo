@@ -13,7 +13,7 @@ import sys, os
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
 
-try:
+try:    
     from MMLL.nodes.MasterNode import MasterNode
     from MMLL.common.MMLL_tools import display
     from MMLL.comms.comms_pycloudmessenger import Comms_master as Comms
