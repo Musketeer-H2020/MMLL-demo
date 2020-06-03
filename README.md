@@ -2,11 +2,15 @@
 
 Demonstrations of the [Musketeer Machine Learning Library (MMLL)](https://github.com/Musketeer-H2020/MMLL) using [Musketeer's pycloudmessenger](https://github.com/IBM/pycloudmessenger/)
 
-You may install pycloudmessenger as follows:
+You may install pycloudmessenger and other library dependencies as follows:
+
+`pip install -r requirements.txt`
+
+Or if you only require pycloudmessenger, then:
 
 `pip install https://github.com/IBM/pycloudmessenger/archive/v0.3.0.tar.gz`
 
-The pycloudmessenger requires a credentials filename to access to the service. Please, place the `musketeer.json` credentials at the `demos/demo_pycloudmessenger/`folder.
+The pycloudmessenger package requires a credentials file to access the cloud service. Please, place the `musketeer.json` credentials at the `demos/demo_pycloudmessenger/`folder.
 
 ## Content
 
