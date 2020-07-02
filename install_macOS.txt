@@ -17,5 +17,5 @@ conda create --name demo python=3.7.4 numpy=1.16.4 matplotlib git seaborn pandas
 conda activate demo
 
 pip install phe
-s
+
 You may need some assistance from a System Manager if you fail to install the Python required libraries.
