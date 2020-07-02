@@ -46,12 +46,9 @@ LOGGER.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    #parser.add_argument('--credentials', type=str, default=None, help='Credentials for Muskeeter Server')
     parser.add_argument('--user', type=str, default=None, help='User')
     parser.add_argument('--password', type=str, default=None, help='Password')
     parser.add_argument('--task_name', type=str, default=None, help='Name of the task')
-    #parser.add_argument('--dataset', type=str, default=None, help='The file with the data')
-    #parser.add_argument('--verbose', type=str, default=False, help='If True print the messages on the console')
 
     FLAGS, unparsed = parser.parse_known_args()
     user_name = FLAGS.user
@@ -125,14 +122,8 @@ if __name__ == "__main__":
     except:
         display('Error - The file ' + dataset_name + '_demonstrator_data.pkl does not exist. Please download it from Box and put it under the following path: "' + os.path.abspath(os.path.join("","../../../../input_data/")) + '"', logger, verbose)
         sys.exit()
-    [Xval, yval] = dc.get_data_val()
-    mn.set_validation_data(dataset_name, Xval, yval)
-    display('MasterNode loaded %d patterns for validation' % mn.NPval, logger, verbose)
-    [Xtst, ytst] = dc.get_data_tst()
-    mn.set_test_data(dataset_name, Xtst, ytst)
-    display('MasterNode loaded %d patterns for test' % mn.NPtst, logger, verbose)
-    #########################################
-  
+
+
     #---------------  Creating a ML model (Master side) ---------------------  
     ########################################
     # Parameters depending on the model_type
@@ -143,6 +134,7 @@ if __name__ == "__main__":
     model_parameters['tolerance'] = float(task_definition['tolerance'])
     mn.create_model_Master(model_type, model_parameters=model_parameters)
     display('MMLL model %s is ready for training!' % model_type, logger, verbose)
+
 
     # We start the training procedure.
     display('Training the model %s' % model_type, logger, verbose)
@@ -160,6 +152,7 @@ if __name__ == "__main__":
     mn.save_model(output_filename_model)
 
     display('-------------  Obtaining predictions----------------------------------\n', logger, verbose)
+    [Xtst, ytst] = dc.get_data_tst()
     preds_tst = model.predict(Xtst)
 
     display('-------------  Evaluating --------------------------------------------\n', logger, verbose)

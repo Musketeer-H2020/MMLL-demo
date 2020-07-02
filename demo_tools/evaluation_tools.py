@@ -21,6 +21,7 @@ from matplotlib.ticker import FuncFormatter, MaxNLocator
 from sklearn.decomposition import PCA
 import pandas as pd
 import seaborn as sn
+import os, sys
 
 def display(message, logger, verbose, uselog=True):
     if verbose:
@@ -30,7 +31,16 @@ def display(message, logger, verbose, uselog=True):
             logger.info(message)
         except:
             pass
-            
+         
+def create_folders(path):
+    # Create the directories for storing relevant outputs if they do not exist
+    if not os.path.exists(path + "logs/"):
+        os.makedirs(path + "logs/") # Create directory for the logs
+    if not os.path.exists(path + "figures/"):
+        os.makedirs(path + "figures/") # Create directory for the figures
+    if not os.path.exists(path + "models/"):
+        os.makedirs(path + "models/") # Create directory for the models
+   
 def format_fn(tick_val, tick_pos):
     if int(tick_val) in xs:
         return labels[int(tick_val)]
@@ -38,6 +48,11 @@ def format_fn(tick_val, tick_pos):
         return ''
 
 def eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, verbose):
+    Xval_b = np.array(Xval_b).astype(float)
+    yval = np.array(yval).astype(float)
+    Xtst_b = np.array(Xtst_b).astype(float)
+    ytst = np.array(ytst).astype(float)
+
     NMSE_val = np.linalg.norm(preds_val.ravel() - yval.ravel()) ** 2 / np.linalg.norm(yval) ** 2
     NMSE_tst = np.linalg.norm(preds_tst.ravel() - ytst.ravel()) ** 2 / np.linalg.norm(yval) ** 2
     display('\n===================================================================', logger, verbose)
@@ -138,6 +153,10 @@ def eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, p
     return
 
 def eval_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, verbose, mn, output_folder='./results/figures/'):
+    Xval_b = np.array(Xval_b).astype(float)
+    yval = np.array(yval).astype(float)
+    Xtst_b = np.array(Xtst_b).astype(float)
+    ytst = np.array(ytst).astype(float)
     roc_auc_val = None
     if preds_val is not None:
         fpr_val, tpr_val, thresholds_val = roc_curve(list(yval), preds_val)
@@ -237,6 +256,7 @@ def eval_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, yts
 
 
 def eval_clustering(pom, model_type, dataset_name, Xtst_b, c, logger, verbose):
+    Xtst_b = np.array(Xtst_b).astype(float)
     # Plotting 2D
     display('\n===================================================================', logger, verbose)
 
@@ -338,11 +358,15 @@ def eval_xcorr(pom, model_type, dataset_name, list_self_corrs, list_cross_corrs,
     return
 
 def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, logger, verbose, mn, classes, preds_val_dict, preds_tst_dict, o_val, o_tst):
+    Xval_b = np.array(Xval_b).astype(float)
+    yval = np.array(yval).astype(float)
+    Xtst_b = np.array(Xtst_b).astype(float)
+    ytst = np.array(ytst).astype(float)
     colors = ['k', 'r', 'g', 'b', 'm', 'c', 'y', 'k--', 'r--', 'g--', 'b--', 'm--']
     fig = plt.figure(figsize=(10, 8))
     for idx, cla in enumerate(classes):
-        yval = (mn.yval == cla).astype(float)
-        fpr_val, tpr_val, thresholds_val = roc_curve(yval, preds_val_dict[cla])
+        yval_ = np.array([str(int(y)) == cla for y in list(yval)]).astype(float)
+        fpr_val, tpr_val, thresholds_val = roc_curve(yval_, preds_val_dict[cla])
         roc_auc_val = auc(fpr_val, tpr_val)
         if str(roc_auc_val) != 'nan':
             display_text_on_legend = 'Class %s, AUC = %s' % (cla, str(roc_auc_val)[0:7])
@@ -363,8 +387,8 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
 
     fig = plt.figure(figsize=(10, 8))
     for idx, cla in enumerate(classes):
-        ytst = (mn.ytst == cla).astype(float)
-        fpr_tst, tpr_tst, thresholds_tst = roc_curve(ytst, preds_tst_dict[cla])
+        ytst_ = np.array([str(int(y)) == cla for y in list(ytst)]).astype(float)
+        fpr_tst, tpr_tst, thresholds_tst = roc_curve(ytst_, preds_tst_dict[cla])
         roc_auc_tst = auc(fpr_tst, tpr_tst)
         if str(roc_auc_tst) != 'nan':
             display_text_on_legend = 'Class %s, AUC = %s' % (cla, str(roc_auc_tst)[0:7])
@@ -385,17 +409,13 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
     display('Master_' + model_type + ':saved figure at %s' % output_filename, logger, verbose)
 
     # True, predicted
-    try:
-        CM_val = confusion_matrix(mn.yval, o_val)
-        CM_tst = confusion_matrix(mn.ytst, o_tst)
-        df_cm = pd.DataFrame(CM_val, index=classes, columns=classes)
-    except:
-        yval = np.array(list(mn.yval) + classes)
-        oval = np.array(list(o_val) + classes)
-        CM_val = confusion_matrix(yval, oval)
-        ytst = np.array(list(mn.ytst) + classes)
-        otst = np.array(list(o_tst) + classes)
-        CM_tst = confusion_matrix(ytst, otst)
+    yval_ = list(yval.ravel())
+    yval_ = [str(int(y)) for y in yval_]
+    CM_val = confusion_matrix(yval_, o_val)
+
+    ytst_ = list(ytst.ravel())
+    ytst_ = [str(int(y)) for y in ytst_]
+    CM_tst = confusion_matrix(ytst_, o_tst)
 
     df_cm = pd.DataFrame(CM_val, index=classes, columns=classes)
     plt.figure(figsize=(10, 7))

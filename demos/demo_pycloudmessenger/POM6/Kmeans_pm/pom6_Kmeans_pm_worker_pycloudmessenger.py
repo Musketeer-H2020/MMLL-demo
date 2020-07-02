@@ -55,15 +55,7 @@ if __name__ == "__main__":
     # Note: this part creates the worker (participant) and it joins the task. This code is
     # intended to be used only at the demos, in Musketeer this part must be done in the client. 
     # ==================================================
-
     credentials_filename = '../../musketeer.json'
-    try:
-        with open(credentials_filename, 'r') as f:
-            credentials = json.load(f)
-    except:
-        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
-        sys.exit()
-
     tm = Task_Manager(credentials_filename)
     task_name = tm.get_current_task_name()
     # We need the participant to build comms object

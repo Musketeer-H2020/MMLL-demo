@@ -121,7 +121,7 @@ if __name__ == "__main__":
     # ==================================================
     
     #########################################
-    display('Creating MasterNode under POM1, communicating through pycloudmessenger', logger, verbose)
+    display('Creating MasterNode under POM %d, communicating through pycloudmessenger' %pom, logger, verbose)
     # Creating Comms object, needed by MMLL
     comms = Comms(aggregator)
 
@@ -136,13 +136,7 @@ if __name__ == "__main__":
     except:
         display('Error - The file ' + dataset_name + '_demonstrator_data.pkl does not exist. Please download it from Box and put it under the following path: "' + os.path.abspath(os.path.join("","../../../../input_data/")) + '"', logger, verbose)
         sys.exit()
-    [Xval, yval] = dc.get_data_val()
-    mn.set_validation_data(dataset_name, Xval, yval)
-    display('MasterNode loaded %d patterns for validation' % mn.NPval, logger, verbose)
-    [Xtst, ytst] = dc.get_data_tst()
-    mn.set_test_data(dataset_name, Xtst, ytst)
-    display('MasterNode loaded %d patterns for test' % mn.NPtst, logger, verbose)
-    #########################################
+
   
     #---------------  Creating a ML model (Master side) ---------------------  
     ########################################
@@ -158,7 +152,8 @@ if __name__ == "__main__":
     # We start the training procedure.
     display('Training the model %s' % model_type, logger, verbose)
     t_ini = time.time()
-    mn.fit()
+    [Xval, yval] = dc.get_data_val()
+    mn.fit(Xval=Xval, yval=yval)
     t_end = time.time()
     display('Training is complete: Training time = %s seconds' % str(t_end - t_ini)[0:6], logger, verbose)
     display('----------------------------------------------------------------------', logger, verbose)
@@ -171,6 +166,7 @@ if __name__ == "__main__":
     mn.save_model(output_filename_model)
     
     display('-------------  Obtaining predictions----------------------------------\n', logger, verbose)
+    [Xtst, ytst] = dc.get_data_tst()
     preds_tst = model.predict(Xtst)
     y = np.argmax(ytst, axis=-1) # Convert to labels
     classes = np.arange(ytst.shape[1]) # 0 to 9
