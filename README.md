@@ -14,17 +14,41 @@ Or if you only require pycloudmessenger, then:
 
 The pycloudmessenger package requires a credentials file to access the cloud service. Please, place the `musketeer.json` credentials at the `demos/demo_pycloudmessenger/`folder.
 
-## Content
+## Content (available demos):
 
 ### POM1:
 
 * **Kmeans**: Clustering demo on the MNIST dataset
 * **NeuralNetworks**: Multiclass Classification demo on the MNIST dataset
 
+### POM2:
+
+* **Kmeans**: Clustering demo on the MNIST dataset
+* **NeuralNetworks**: Multiclass Classification demo on the MNIST dataset
+
+### POM3:
+
+* **Kmeans**: Clustering demo on the MNIST dataset
+* **NeuralNetworks**: Multiclass Classification demo on the MNIST dataset
+
+### POM4: 
+
+* **LR**: Linear Regression demo on the redwine dataset
+* **Kmeans_pm**: Clustering demo on a synthetic dataset
+
+### POM5: 
+
+* **LR**: Linear Regression demo on the redwine dataset
+* **Kmeans_pm**: Clustering demo on a synthetic dataset
+
 ### POM6: 
 
+* **RR**: Ridge Regression demo on the redwine dataset
 * **Kmeans_pm**: Clustering demo on a synthetic dataset (public model)
-* **LC_pm**: Logistic Binary Classifier: Binary Classification demo on the MNIST dataset (public model)
+* **LC_pm**: Binary Logistic Classifier: Binary Classification demo on the MNIST dataset (public model). Includes **normalization** example. 
+* **MLC_pm**: Multiclass Logistic Classifier: Multiclass Classification demo on the MNIST dataset (public model).
+* **KR_pm**: Kernel Regression demo on a synthetic dataset.
+
 
 The output files are stored in the corresponding `results/` folder.
 

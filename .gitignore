@@ -131,4 +131,6 @@ dmypy.json
 # credentials
 *musketeer.json*
 
+input_data/
 
+*.pkl

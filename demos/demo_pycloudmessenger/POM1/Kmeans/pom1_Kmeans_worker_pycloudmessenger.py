@@ -46,12 +46,9 @@ LOGGER.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    #parser.add_argument('--credentials', type=str, default=None, help='Credentials for Muskeeter Server')
     parser.add_argument('--user', type=str, default=None, help='User')
     parser.add_argument('--password', type=str, default=None, help='Password')
     parser.add_argument('--task_name', type=str, default=None, help='Name of the task')
-    #parser.add_argument('--dataset', type=str, default=None, help='The file with the data')
-    #parser.add_argument('--verbose', type=str, default=False, help='If True print the messages on the console')
     parser.add_argument('--id', type=int, default=None, help='The address of the worker')
 
     FLAGS, unparsed = parser.parse_known_args()
@@ -119,14 +116,12 @@ if __name__ == "__main__":
     except:
         display('Error - The file ' + dataset_name + '_demonstrator_data.pkl does not exist. Please download it from Box and put it under the following path: "' + os.path.abspath(os.path.join("","../../../../input_data/")) + '"', logger, verbose)
         sys.exit()
-    [Xtr, ytr, Xval, yval, Xtst, ytst] = dc.get_all_data_Worker(int(data_partition_id))
+
+    [Xtr, ytr, _, _, Xtst, ytst] = dc.get_all_data_Worker(int(data_partition_id))
     wn.set_training_data(dataset_name, Xtr, ytr)
-    wn.set_validation_data(dataset_name, Xval, yval)
-    wn.set_test_data(dataset_name, Xtst, ytst)
     display('WorkerNode loaded %d patterns for training' % wn.NPtr, logger, verbose)
-    display('WorkerNode loaded %d patterns for validation' % wn.NPval, logger, verbose)
-    display('WorkerNode loaded %d patterns for test' % wn.NPtst, logger, verbose)
     #########################################
+
 
     #---------------  Creating a ML model (Worker side) ---------------------  
     wn.create_model_worker(model_type)

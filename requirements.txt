@@ -1,4 +1,5 @@
 pandas==1.0.3
 seaborn==0.10.1
 MMLL @ git+https://github.com/Musketeer-H2020/MMLL.git
+phe==1.4.0
 pycloudmessenger @ git+https://github.com/IBM/pycloudmessenger.git@v0.3.0

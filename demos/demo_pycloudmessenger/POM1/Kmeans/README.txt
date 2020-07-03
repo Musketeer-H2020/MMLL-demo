@@ -23,7 +23,26 @@ Important notes:
     - Each user should have a different id, otherwise they will be training using the same dataset partition.
 -------------------------------------------
 
+
+==================================================================
+ Without normalization
+==================================================================
 python pom1_Kmeans_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name>
 python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
 python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
 
+
+==================================================================
+ With minmax normalization
+==================================================================
+python pom1_Kmeans_master_pycloudmessenger_minmax_normalization.py --user <user> --password <password> --task_name <task_name>
+python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 1
+
+
+==================================================================
+ With std normalization
+==================================================================
+python pom1_Kmeans_master_pycloudmessenger_std_normalization.py --user <user> --password <password> --task_name <task_name>
+python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 1

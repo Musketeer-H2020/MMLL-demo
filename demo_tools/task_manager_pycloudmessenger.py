@@ -7,7 +7,8 @@ __author__ = "Angel Navia Vázquez, UC3M."
 
 import random, string
 import time
-import sys
+import sys, os
+import json
 try:
     import pycloudmessenger.ffl.abstractions as ffl
     import pycloudmessenger.ffl.fflapi as fflapi
@@ -28,7 +29,14 @@ class Task_Manager:
     def __init__(self, credentials_filename):
         """
         """
-        self.credentials_filename = credentials_filename
+        try:
+            with open(credentials_filename, 'r') as f:
+                credentials = json.load(f)
+                
+            self.credentials_filename = credentials_filename
+        except:
+            print('\n' + '#' * 80 + '\nERROR - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"\n' + '#' * 80 + '\n')
+            sys.exit()
 
     def create_master_random_taskname(self, pom, Nworkers, user_name=None, user_password='Tester', user_org='Musketeer', task_name='Test', random_taskname=True):
         self.pom = pom
@@ -254,3 +262,4 @@ class Task_Manager:
                 ready = True
 
         return workers
+

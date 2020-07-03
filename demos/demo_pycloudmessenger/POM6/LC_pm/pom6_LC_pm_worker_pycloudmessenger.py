@@ -2,7 +2,7 @@
 '''
 @author:  Angel Navia Vázquez
 Jan. 2020
-python pom6_LC_pm_worker_pycloudmessenger.py --id 0 --dataset synth2D --verbose 1
+python pom6_LC_pm_worker_pycloudmessenger.py --id 0 --dataset pima --verbose 1
 
 '''
 import argparse
@@ -15,15 +15,14 @@ try:
     from MMLL.nodes.WorkerNode import WorkerNode
     from MMLL.common.MMLL_tools import display
     from MMLL.comms.comms_pycloudmessenger import Comms_worker as Comms
-except:
-    print('\n' + 80 * '#')
-    print('You need to install the MMLL library')
-    print('pip install git+https://github.com/Musketeer-H2020/MMLL.git')
-    print(80 * '#' + '\n')
-    sys.exit()
+except Exception as err:
+    if "No module named 'MMLL'" in str(err):
+        print('\n' + 80 * '#')
+        print('You need to install the MMLL library')
+        print('pip install git+https://github.com/Musketeer-H2020/MMLL.git')
+        print(80 * '#' + '\n')
+    raise
 
-# Add higher directory to python modules path.
-sys.path.append("../../../../")
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector
@@ -51,19 +50,7 @@ if __name__ == "__main__":
     
     display('===========================================', logger, True)
     display('Creating Worker...', logger, True)
-    # ==================================================
-    # Note: this part creates the worker (participant) and it joins the task. This code is
-    # intended to be used only at the demos, in Musketeer this part must be done in the client. 
-    # ==================================================
-
     credentials_filename = '../../musketeer.json'
-    try:
-        with open(credentials_filename, 'r') as f:
-            credentials = json.load(f)
-    except:
-        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
-        sys.exit()
-
     tm = Task_Manager(credentials_filename)
     task_name = tm.get_current_task_name()
     # We need the participant to build comms object
