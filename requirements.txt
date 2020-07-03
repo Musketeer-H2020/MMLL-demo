@@ -1,4 +1,10 @@
 pandas==1.0.3
 seaborn==0.10.1
 phe==1.4.0
+transitions==0.6.9
+pygraphviz==1.5 
+Keras==2.2.4 
+tensorflow==1.14.0 
+pika=0.13.0 
+gmpy2==2.0.8
 pycloudmessenger @ git+https://github.com/IBM/pycloudmessenger.git@v0.3.0
