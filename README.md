@@ -70,4 +70,5 @@ The datasets needed to run these demos are located at [IBM Box](https://ibm.box.
 
 **IMPORTANT NOTE**: These datasets have been modified with respect to their original versions and are only intended to be used in these demos. Use them for other purposes under your own responsability.
 
+This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 824988. https://musketeer.eu/
 
