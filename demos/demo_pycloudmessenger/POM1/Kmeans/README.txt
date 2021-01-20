@@ -17,9 +17,10 @@ Parameters:
     - password: String with the password.
     - task_name: String with the name of the task. If the task already exists, an error will be displayed.
     - id: Integer representing the partition of data to be used by the worker. Each worker should use a different partition, possible values are 0 to 4.
+    - normalization: String indicating wether to apply normalization. Possible options are std, minmax or no. By default no normalization is used.
 
 Important notes:
-    - The task_name should be the same for all terminals. Each time we launch a new demo a new name has to be given to the task.
+    - The task_name should be the same for all terminals.
     - Each user should have a different id, otherwise they will be training using the same dataset partition.
 -------------------------------------------
 
@@ -35,14 +36,14 @@ python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password
 ==================================================================
  With minmax normalization
 ==================================================================
-python pom1_Kmeans_master_pycloudmessenger_minmax_normalization.py --user <user> --password <password> --task_name <task_name>
-python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 0
-python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 1
+python pom1_Kmeans_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --normalization minmax
+python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
 
 
 ==================================================================
  With std normalization
 ==================================================================
-python pom1_Kmeans_master_pycloudmessenger_std_normalization.py --user <user> --password <password> --task_name <task_name>
-python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 0
-python pom1_Kmeans_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 1
+python pom1_Kmeans_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --normalization std
+python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_Kmeans_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1

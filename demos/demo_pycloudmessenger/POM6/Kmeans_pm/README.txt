@@ -35,3 +35,19 @@ python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 
 python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 3
 python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 4
 
+windows
+python pom6_Kmeans_pm_master_pycloudmessenger.py --dataset synth2D --verbose 1
+python pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 
+
+Debug: 
+
+python3 pom6_Kmeans_pm_master_pycloudmessenger.py --dataset synth2D --verbose 1
+
+python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 0
+
+python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 1 & 
+python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 2 & 
+python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 3 & 
+python3 pom6_Kmeans_pm_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 4 & 
+
+

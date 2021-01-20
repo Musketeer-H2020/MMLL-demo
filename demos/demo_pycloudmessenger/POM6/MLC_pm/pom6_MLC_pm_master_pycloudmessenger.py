@@ -74,7 +74,7 @@ if __name__ == "__main__":
     comms = Comms(aggregator)
 
     # We have experienced problems in pycloudmessenger when timeout is small...
-    comms.pycloudmessenger_timeout_POMs456 = 10
+    comms.pycloudmessenger_timeout_POMs456 = 0.1
 
     # Creating Masternode
     mn = MasterNode(pom, comms, logger, verbose)
@@ -113,7 +113,7 @@ if __name__ == "__main__":
                                 ]
                                 }
 
-    if dataset_name == 'M-mnist-dlp100':
+    if dataset_name in ['M-mnist-dlp100', 'M-mnist-dlp100-noniid']:
         input_data_description = {
                             "NI": 100, 
                             "input_types": [{"type": "num"}] * 100
@@ -196,7 +196,7 @@ if __name__ == "__main__":
         eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, logger, True, mn, classes, preds_val_dict, preds_tst_dict, o_val, o_tst)
 
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        mn.terminate_workers()
 
         try:
             os.remove('current_taskname.txt')

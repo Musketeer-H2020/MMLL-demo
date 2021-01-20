@@ -2,7 +2,7 @@
 '''
 @author:  Angel Navia Vázquez
 May 2020
-python pom4_LR_crypto_pycloudmessenger.py --verbose 1
+python pom4_LR_crypto_ptcloudmessenger.py --verbose 1
 
 '''
 import argparse
@@ -22,6 +22,9 @@ except Exception as err:
         print('pip install git+https://github.com/Musketeer-H2020/MMLL.git')
         print(80 * '#' + '\n')
     raise
+
+# Add higher directory to python modules path.
+sys.path.append("../../../../")
 
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
@@ -66,7 +69,7 @@ if __name__ == "__main__":
     # Creating Comms object, needed by MMLL
     comms = Comms(participant, cryptonode_real_name)
     # For debugging purposes
-    comms.pycloudmessenger_timeout_POMs456 = 10
+    comms.pycloudmessenger_timeout_POMs456 = 0.1
 
     #########################################
     # Creating Cryptonode

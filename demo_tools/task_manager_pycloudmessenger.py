@@ -53,11 +53,27 @@ class Task_Manager:
         
         if user_name is None:
             user_name = 'ma' + version
-        
-        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
-        context_master = ffl.Factory.context(config, self.credentials_filename)
 
+        fflapi.create_user(user_name, user_password, user_org, self.credentials_filename)
+        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
+        context_master = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder = serializer.Base64Serializer)
+        
+        # Create task
+        task_definition = {"task_name": task_name,
+                            "owner": user_name, 
+                           "quorum": self.Nworkers, 
+                           "POM": self.pom,
+                           "model_type": "None", 
+                          }
+        
         ffl_user_master = ffl.Factory.user(context_master)
+        with ffl_user_master:
+            try:
+                result = ffl_user_master.create_task(task_name, ffl.Topology.star, task_definition)
+            except Exception as err:
+                print(str(err).split(':')[1])
+
+        '''
         with ffl_user_master:
             try:
                 ffl_user_master.create_user(user_name, user_password, user_org)
@@ -66,24 +82,13 @@ class Task_Manager:
 
         context_master = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder = serializer.Base64Serializer)
         ffl_user_master = ffl.Factory.user(context_master)
-
-        # Create task
-        task_definition = {"task_name": task_name,
-                            "owner": user_name, 
-                           "quorum": self.Nworkers, 
-                           "POM": self.pom,
-                           "model_type": "None", 
-                          }
-        with ffl_user_master:
-            try:
-                result = ffl_user_master.create_task(task_name, ffl.Topology.star, task_definition)
-            except Exception as err:
-                print(str(err).split(':')[1])
+        '''
 
         # We write to disk the name of the task, to be read by the workers. In the real system, 
         # the task_name must be communicated by other means.
         with open('current_taskname.txt', 'w') as f:
             f.write(task_name)
+
         self.aggregator = ffl.Factory.aggregator(context_master, task_name=task_name)
         #return context_master, task_name
         return self.aggregator
@@ -95,31 +100,22 @@ class Task_Manager:
         config = 'cloud'
 
         # Create context for the cloud communications
-        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
-        context = ffl.Factory.context(config, self.credentials_filename)
-
-        # Create user
-        ffl_user = ffl.Factory.user(context)
-        with ffl_user:
-            try:
-                ffl_user.create_user(user_name, user_password, user_org)
-                display('User %s has registered in pycloudmessenger platform!' %user_name, logger, verbose)
-            except Exception as err:
-                display('The user %s is already registered in pycloudmessenger platform.' %user_name, logger, verbose)
-        context = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder=serializer.Base64Serializer)
-
         try:
-            user = ffl.Factory.user(context)
-            with user:
-                import json
-                result = user.create_task(task_name, ffl.Topology.star, task_definition)
-                task_definition = json.loads(user.task_info(task_name)['definition'])
+            fflapi.create_user(user_name, user_password, user_org, self.credentials_filename)
         except Exception as err:
-            display('Error: %s' %err, logger, verbose)
-            import sys
-            sys.exit()
+            display('The user %s is already registered in pycloudmessenger platform.' %user_name, logger, verbose)
+        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
+        context_master = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder=serializer.Base64Serializer)
+
+        # Create task
+        ffl_user_master = ffl.Factory.user(context_master)
+        with ffl_user_master:
+            try:
+                result = ffl_user_master.create_task(task_name, ffl.Topology.star, task_definition)
+            except Exception as err:
+                display('Error - %' %str(err).split(':')[1], logger, verbose)
  
-        self.aggregator = ffl.Factory.aggregator(context, task_name=task_name)
+        self.aggregator = ffl.Factory.aggregator(context_master, task_name=task_name)
         return self.aggregator
 
 
@@ -140,6 +136,7 @@ class Task_Manager:
         created = False
         while not created:
             try:
+
                 self.task_name = self.get_current_task_name()
                 print(self.task_name)
                 config = 'cloud'
@@ -149,17 +146,30 @@ class Task_Manager:
                 user_password  += version
 
                 ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
-                context_w = ffl.Factory.context(config, self.credentials_filename)
+                fflapi.create_user(worker_name, user_password, user_org, self.credentials_filename)
+
+
+                #context_w = ffl.Factory.context(config, self.credentials_filename)
+                context_w = ffl.Factory.context(config, self.credentials_filename, worker_name, user_password, encoder=serializer.Base64Serializer)
+
+
+                '''
                 ffl_user_worker = ffl.Factory.user(context_w)
                 with ffl_user_worker:
                     try:
                         ffl_user_worker.create_user(worker_name, user_password, user_org)
                     except Exception as err:
                         print(str(err).split(':')[1])
-                context_w = ffl.Factory.context('cloud', self.credentials_filename, worker_name, user_password, encoder = serializer.Base64Serializer)
+                '''
+                #context_w = ffl.Factory.context('cloud', self.credentials_filename, worker_name, user_password, encoder = serializer.Base64Serializer)
+                #user_worker0 = ffl.Factory.user(context_w)
+                
                 user_worker = ffl.Factory.user(context_w)
                 with user_worker:
                     try:
+
+
+
                         result = user_worker.join_task(self.task_name)
                         print('Worker %s has joined task %s' % (worker_name, self.task_name))
                         created = True
@@ -171,38 +181,39 @@ class Task_Manager:
                 pass
 
         participant = ffl.Factory.participant(context_w, task_name=self.task_name)
-        
+
         return participant
 
 
     def create_worker_and_join_task(self, user_name, user_password, task_name, display, logger, user_org='TREE', verbose=False):
         config = 'cloud'
-
-        # Create context for the cloud communications
-        ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
-        context = ffl.Factory.context(config, self.credentials_filename)
-
-        # Create user
-        ffl_user = ffl.Factory.user(context)
-        with ffl_user:
+        created = False
+        while not created:
             try:
-                ffl_user.create_user(user_name, user_password, user_org)
-                display('User %s has registered in pycloudmessenger platform!' %user_name, logger, verbose)
+                # Create context for the cloud communications
+                ffl.Factory.register(config, fflapi.Context, fflapi.User, fflapi.Aggregator, fflapi.Participant)
+                try:
+                    fflapi.create_user(user_name, user_password, user_org, self.credentials_filename)
+                except Exception as err:
+                    display('The user %s is already registered in pycloudmessenger platform.' %user_name, logger, verbose)
+                context = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder=serializer.Base64Serializer)
+
+                # Join task
+                user = ffl.Factory.user(context)
+                with user:
+                    try:
+                        result = user.join_task(task_name)
+                        display('Worker %s has joined task %s' %(user_name, task_name), logger, verbose)
+                        created = True
+                    except Exception as err:
+                        display('Error - %' %str(err).split(':')[1], logger, verbose)
             except Exception as err:
-                display('The user %s is already registered in pycloudmessenger platform.' %user_name, logger, verbose)
-        context = ffl.Factory.context(config, self.credentials_filename, user_name, user_password, encoder=serializer.Base64Serializer)
+                print(err)
+                display('Waiting for Master...', logger, verbose)
+                time.sleep(5)
+                pass
 
-        # Join task
-        try:
-            user = ffl.Factory.user(context)
-            with user:
-                user.join_task(task_name)
-        except Exception as err:
-            import sys
-            display('Error: %s' %err, logger, verbose)
-            sys.exit()
-
-        # Create the comms object
+        # Create the comms object        
         participant = ffl.Factory.participant(context, task_name=task_name)
         return participant
 

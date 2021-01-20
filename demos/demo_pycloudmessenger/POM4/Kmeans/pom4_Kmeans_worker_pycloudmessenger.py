@@ -23,6 +23,8 @@ except Exception as err:
         print(80 * '#' + '\n')
     raise
 
+# Add higher directory to python modules path.
+sys.path.append("../../../../")
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     # Creating Comms object, needed by MMLL
     comms = Comms(participant, worker_real_name)
     # For debugging purposes
-    comms.pycloudmessenger_timeout_POMs456 = 10
+    comms.pycloudmessenger_timeout_POMs456 = 0.1
 
     #########################################
     # Creating Workernode

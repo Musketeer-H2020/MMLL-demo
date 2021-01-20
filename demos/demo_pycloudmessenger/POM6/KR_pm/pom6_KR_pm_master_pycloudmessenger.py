@@ -133,7 +133,12 @@ if __name__ == "__main__":
 
         # We stop the workers and prepare them for the next step
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        
+        ## Warning, this causes the workers to close the connection and exit...
+        ## mn.terminate_workers()
+        # We stop the workers but we do not disconnect them
+        mn.stop_workers()
+
     else:
         display('ERROR while computing centroids.', logger, True)
         sys.exit()
@@ -204,7 +209,7 @@ if __name__ == "__main__":
         eval_regression(pom, model_type, dataset_name, Xval, yval, Xtst, ytst, preds_val, preds_tst, logger, True)
         
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        mn.terminate_workers()
 
         try:
             os.remove('current_taskname.txt')

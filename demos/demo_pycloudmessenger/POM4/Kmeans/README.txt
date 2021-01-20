@@ -42,3 +42,22 @@ python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --i
 python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 2 
 python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 3 
 python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 4 
+
+windows
+python pom4_Kmeans_master_pycloudmessenger.py --dataset synth2D --verbose 1
+python pom4_Kmeans_crypto_pycloudmessenger.py --verbose 1 --id 5
+python pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 
+
+debug:
+
+python3 pom4_Kmeans_master_pycloudmessenger.py --dataset synth2D --verbose 1
+
+python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 0  
+
+python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 1 &
+python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 2 &
+python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 3 &
+python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 4 &
+
+python3 pom4_Kmeans_crypto_pycloudmessenger.py --verbose 1 --id 5
+

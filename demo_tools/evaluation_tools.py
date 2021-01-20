@@ -442,7 +442,7 @@ def eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, 
 
 
 
-def Kmeans_plot(X, preds, title, model_type, dataset_name, logger, verbose):
+def Kmeans_plot(X, preds, title, output_filename, logger, verbose):
     try:
         pca = PCA(n_components=2)
         X_pca = pca.fit(X).transform(X)
@@ -452,14 +452,14 @@ def Kmeans_plot(X, preds, title, model_type, dataset_name, logger, verbose):
         plt.ylabel('PCA component 2')
         plt.title(title)
         plt.grid(True)
-        output_filename = '../results/figures/' + model_type + '_clusters_' + dataset_name + '.png'
+        output_filename = './results/figures/' + output_filename
         plt.savefig(output_filename)
     except:
         display('Model not correctly trained, not drawing', logger, verbose)
 
 
 
-def plot_cm_seaborn(preds, y, classes, title, model_type, dataset_name, logger, verbose, normalize=False, cmap=plt.cm.GnBu):
+def plot_cm_seaborn(preds, y, classes, title, output_filename, logger, verbose, normalize=False, cmap=plt.cm.GnBu):
     cnf_matrix = confusion_matrix(y, preds)
 
     if normalize:
@@ -476,7 +476,7 @@ def plot_cm_seaborn(preds, y, classes, title, model_type, dataset_name, logger, 
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.title(title)
-    output_filename = '../results/figures/' + model_type + '_confusion_matrix_' + dataset_name + '.png'
+    output_filename = './results/figures/' + output_filename
     plt.savefig(output_filename)
 
 

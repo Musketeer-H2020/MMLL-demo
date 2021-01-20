@@ -158,7 +158,7 @@ if __name__ == "__main__":
         
 
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        mn.terminate_workers()
 
         try:
             os.remove('current_taskname.txt')

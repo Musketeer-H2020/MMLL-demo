@@ -23,6 +23,8 @@ except Exception as err:
         print(80 * '#' + '\n')
     raise
 
+# Add higher directory to python modules path.
+sys.path.append("../../../../")
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector
@@ -70,6 +72,7 @@ if __name__ == "__main__":
     # connectors must be provided
     data_file = '../../../../input_data/' + dataset_name + '_demonstrator_data.pkl'
     dc = DC(data_file)
+
     [Xtr, ytr] = dc.get_data_train_Worker(int(worker_real_name[0]))
     wn.set_training_data(dataset_name, Xtr, ytr)
     display('WorkerNode loaded %d patterns for train' % wn.NPtr, logger, True)

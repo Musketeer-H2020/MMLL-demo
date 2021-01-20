@@ -23,6 +23,8 @@ except Exception as err:
         print(80 * '#' + '\n')
     raise
 
+# Add higher directory to python modules path.
+sys.path.append("../../../../")
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.crypto.crypt_PHE import Crypto as CR
 from demo_tools.mylogging.logger_v1 import Logger
@@ -31,6 +33,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--id', type=str, default=None, help='The addresses of the workers')
     parser.add_argument('--verbose', type=str, default='1', help='Print on screen if True')
+    #parser.add_argument('--dataset', type=str, default=None, help='The dataset to be used')
+    #parser.add_argument('--platform', type=str, default='pycloudmessenger', help='The comms plaftorm')
     FLAGS, unparsed = parser.parse_known_args()
     if FLAGS.verbose == '1':
         verbose = True
@@ -69,7 +73,7 @@ if __name__ == "__main__":
     # Creating Comms object, needed by MMLL
     comms = Comms(participant, cryptonode_real_name)
     # For debugging purposes
-    comms.pycloudmessenger_timeout_POMs456 = 10
+    comms.pycloudmessenger_timeout_POMs456 = 0.1
 
     #########################################
     # Creating Cryptonode

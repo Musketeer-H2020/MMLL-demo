@@ -17,15 +17,18 @@ Parameters:
     - password: String with the password.
     - task_name: String with the name of the task. If the task already exists, an error will be displayed.
     - id: Integer representing the partition of data to be used by the worker. Each worker should use a different partition, possible values are 0 to 4.
+    - normalization: String indicating wether to apply normalization. Possible options are std, minmax or no. By default no normalization is used.
+    - implementation: String indicating whether to use gradient_averaging or model_averaging implementation. By default the latter is used.
 
 Important notes:
-    - The task_name should be the same for all terminals. Each time we launch a new demo a new name has to be given to the task.
+    - The task_name should be the same for all terminals.
     - Each user should have a different id, otherwise they will be training using the same dataset partition.
     - The architecture of the Keras model to use is defined inside this folder. If you want to try a different architecture use the script model_definition_keras.py and define a new architecture using the sequential or functional API provided by Keras. This new filename should be updated at the beginning of pom1_NN_master_pycloudmessenger.py in order for the changes to take place.
 -------------------------------------------
 
+
 ==================================================================
- Without normalization
+ Model averaging without normalization
 ==================================================================
 python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name>
 python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
@@ -33,16 +36,42 @@ python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --
 
 
 ==================================================================
- With minmax normalization
+ Model averaging with minmax normalization
 ==================================================================
-python pom1_NN_master_pycloudmessenger_minmax_normalization.py --user <user> --password <password> --task_name <task_name>
-python pom1_NN_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 0
-python pom1_NN_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 1
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --normalization minmax
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
 
 
 ==================================================================
- With std normalization
+ Model averaging with std normalization
 ==================================================================
-python pom1_NN_master_pycloudmessenger_std_normalization.py --user <user> --password <password> --task_name <task_name>
-python pom1_NN_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 0
-python pom1_NN_worker_pycloudmessenger_normalization.py --user <user> --password <password> --task_name <task_name> --id 1
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --normalization std
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
+
+==================================================================
+ Gradient averaging without normalization
+==================================================================
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --implementation gradient_averaging
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
+
+==================================================================
+ Gradient averaging with minmax normalization
+==================================================================
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name>  --implementation gradient_averaging --normalization minmax
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
+
+==================================================================
+ Gradient averaging with std normalization
+==================================================================
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name>  --implementation gradient_averaging --normalization std
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
+

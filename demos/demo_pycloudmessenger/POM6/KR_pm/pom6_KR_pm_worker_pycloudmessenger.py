@@ -86,6 +86,16 @@ if __name__ == "__main__":
 
     display('Worker_' + model_type + ' %s: EXIT' % str(worker_real_name), logger, True)
 
+    '''
+    print('STOP AT worker')
+    import code
+    code.interact(local=locals())
+    comms.receive()
+
+    with comms.commsffl:
+        packet = comms.commsffl.receive(1)
+    '''
+    
     model_type = 'KR_pm'
 
     display('Creating WorkerNode under POM6, communicating through pycloudmessenger', logger, True)

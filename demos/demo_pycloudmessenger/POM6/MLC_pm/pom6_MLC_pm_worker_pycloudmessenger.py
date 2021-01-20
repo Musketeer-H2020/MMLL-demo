@@ -66,7 +66,7 @@ if __name__ == "__main__":
     comms = Comms(participant, worker_real_name)
 
     # We have experienced problems in pycloudmessenger when timeout is small...
-    comms.pycloudmessenger_timeout_POMs456 = 10
+    comms.pycloudmessenger_timeout_POMs456 = 0.1
 
     #########################################
     # Creating Workernode

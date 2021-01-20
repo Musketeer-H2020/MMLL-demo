@@ -157,7 +157,7 @@ if __name__ == "__main__":
         eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, True)
 
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        mn.terminate_workers()
 
         try:
             os.remove('current_taskname.txt')

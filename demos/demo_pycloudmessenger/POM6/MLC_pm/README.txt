@@ -39,6 +39,18 @@ python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbos
 python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1  --id 4
 
 
+python pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1  --id 2
+
+
+python3 pom6_MLC_pm_master_pycloudmessenger.py --dataset M-mnist-dlp100-noniid --verbose 1
+
+(wait for the master to start listening for workers...)
+
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100-noniid --verbose 1  --id 0 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100-noniid --verbose 1  --id 1 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100-noniid --verbose 1  --id 2 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100-noniid --verbose 1  --id 3 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100-noniid --verbose 1  --id 4
 
 
 ---------------------
@@ -76,4 +88,35 @@ python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --
 python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 2
 python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 3
 python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 4
+
+windows
+python pom6_MLC_pm_master_pycloudmessenger.py --dataset M-mnist --verbose 1
+python pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1 --id 
+
+python pom6_MLC_pm_master_pycloudmessenger.py --dataset M-mnist-small --verbose 1
+python pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-small --verbose 1 --id 
+
+python pom6_MLC_pm_master_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1
+python pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1 --id 
+
+# Checking timeout=0.1 with new pycloudmessenger
+
+python3 pom6_MLC_pm_master_pycloudmessenger.py --dataset M-mnist --verbose 1 &
+sleep 20
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1 --id 0 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 1 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 2 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 3 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist --verbose 1  --id 4 &
+
+Debug:
+
+python3 pom6_MLC_pm_master_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1
+
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1 --id 0
+
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1 --id 1 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1 --id 2 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1 --id 3 &
+python3 pom6_MLC_pm_worker_pycloudmessenger.py --dataset M-mnist-dlp100 --verbose 1 --id 4 &
 

@@ -72,7 +72,7 @@ if __name__ == "__main__":
     # Creating Comms object, needed by MMLL
     comms = Comms(aggregator)
     # For debugging purposes
-    comms.pycloudmessenger_timeout_POMs456 = 10
+    comms.pycloudmessenger_timeout_POMs456 = 0.1
 
     # Creating Masternode
     mn = MasterNode(pom, comms, logger, verbose)
@@ -151,7 +151,7 @@ if __name__ == "__main__":
         eval_clustering(pom, model_type, dataset_name, Xtst, model.c, logger, True)
         
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        mn.terminate_workers()
 
         try:
             os.remove('current_taskname.txt')

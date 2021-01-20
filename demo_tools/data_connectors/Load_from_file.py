@@ -106,3 +106,21 @@ class Load_From_File():
 
         """
         return self.Xtr_chunks[kworker], self.ytr_chunks[kworker], self.Xval, self.yval, self.Xtst, self.ytst
+
+
+    def get_all_tr_data(self):
+        """
+        Obtains all training data
+
+        Returns
+        -------
+        list of: 
+
+        Xtr: ndarray
+            2-D array containing the training patterns, one pattern per row
+
+        ytr: ndarray
+            1-D array containing the training targets, one target per row
+
+        """
+        return self.Xtr_chunks, self.ytr_chunks

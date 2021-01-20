@@ -143,7 +143,7 @@ if __name__ == "__main__":
         eval_clustering(pom, model_type, dataset_name, Xtst, model.c, logger, True)
 
         display('Terminating all worker nodes.', logger, True)
-        mn.terminate_Workers()
+        mn.terminate_workers()
 
         try:
             os.remove('current_taskname.txt')
