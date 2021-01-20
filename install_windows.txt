@@ -20,6 +20,4 @@ conda activate demo
 
 conda install -c alubbock pygraphviz --yes
 
-pip install phe
-
 You may need some assistance from a System Manager if you fail to install the Python required libraries.

@@ -21,16 +21,6 @@ The pycloudmessenger package requires a credentials file to access the cloud ser
 * **Kmeans**: Clustering demo on the MNIST dataset
 * **NeuralNetworks**: Multiclass Classification demo on the MNIST dataset
 
-### POM2:
-
-* **Kmeans**: Clustering demo on the MNIST dataset
-* **NeuralNetworks**: Multiclass Classification demo on the MNIST dataset
-
-### POM3:
-
-* **Kmeans**: Clustering demo on the MNIST dataset
-* **NeuralNetworks**: Multiclass Classification demo on the MNIST dataset
-
 ### POM4: 
 
 * **LR**: Linear Regression demo on the redwine dataset
@@ -44,9 +34,13 @@ The pycloudmessenger package requires a credentials file to access the cloud ser
 ### POM6: 
 
 * **RR**: Ridge Regression demo on the redwine dataset
+
 * **Kmeans_pm**: Clustering demo on a synthetic dataset (public model)
+
 * **LC_pm**: Binary Logistic Classifier: Binary Classification demo on the MNIST dataset (public model). Includes **normalization** example. 
+
 * **MLC_pm**: Multiclass Logistic Classifier: Multiclass Classification demo on the MNIST dataset (public model).
+
 * **KR_pm**: Kernel Regression demo on a synthetic dataset.
 
 
@@ -70,5 +64,4 @@ The datasets needed to run these demos are located at [IBM Box](https://ibm.box.
 
 **IMPORTANT NOTE**: These datasets have been modified with respect to their original versions and are only intended to be used in these demos. Use them for other purposes under your own responsability.
 
-This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 824988. https://musketeer.eu/
 
