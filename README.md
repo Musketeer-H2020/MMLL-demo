@@ -89,7 +89,7 @@ If you encounter any difficulties in the installation of some of the dependencie
 
 ## Input data
 
-The datasets needed to run these demos are located at [IBM Box](https://ibm.box.com/s/l8yzdbdb40j499o513hygx5q85xyoz6v). Please, download and place them in your local `input_data/` folder. 
+The datasets needed to run these demos are located at [this link](https://drive.google.com/drive/folders/1-piNDL_tL6V4pCI-En02zeCEqoL-dUUu?usp=sharing). Please, download and place them in your local `input_data/` folder. 
 
 **IMPORTANT NOTE**: These datasets have been modified with respect to their original versions and are only intended to be used in these demos. Use them for other purposes under your own responsability.
 
