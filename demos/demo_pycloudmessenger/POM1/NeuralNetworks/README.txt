@@ -50,6 +50,29 @@ python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --
 python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
 python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
 
+==================================================================
+ Robust model averaging without normalization
+==================================================================
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --implementation adaptive_model_averaging
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
+
+==================================================================
+ Robust model averaging with minmax normalization
+==================================================================
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --implementation adaptive_model_averaging --normalization minmax
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
+
+==================================================================
+ Robust model averaging with std normalization
+==================================================================
+python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --implementation adaptive_model_averaging --normalization std
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+
 
 ==================================================================
  Gradient averaging without normalization
