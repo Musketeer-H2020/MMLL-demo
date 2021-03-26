@@ -54,7 +54,7 @@ if __name__ == "__main__":
     parser.add_argument('--password', type=str, default=None, help='Password')
     parser.add_argument('--task_name', type=str, default=None, help='Name of the task')
     parser.add_argument('--normalization', type=str, default='no', choices=['no', 'std', 'minmax'], help='Type of normalization')
-    parser.add_argument('--implementation', type=str, default='model_averaging', choices=['model_averaging', 'gradient_averaging'], help='Type of implementation')
+    parser.add_argument('--implementation', type=str, default='model_averaging', choices=['adaptive_model_averaging', 'model_averaging', 'gradient_averaging'], help='Type of implementation')
 
     FLAGS, unparsed = parser.parse_known_args()
     user_name = FLAGS.user
@@ -88,8 +88,10 @@ if __name__ == "__main__":
         sys.exit()
 
     # Task definition
-    if implementation.lower() == 'model_averaging':
+    if implementation.endswith('model_averaging'):
         model_averaging = 'True'
+        if implementation.startswith('adaptive'):
+            model_type = 'NN_AFA'
     else:
         model_averaging = 'False'
     task_definition = {"quorum": Nworkers, 
