@@ -18,45 +18,54 @@ The pycloudmessenger package requires a credentials file to access the cloud ser
 
 ### POM1:
 
-* **Kmeans**: Clustering demo on the PIMA dataset.
-* **Neural Networks**: Multiclass Classification demo on the MNIST dataset.
-* **Suport Vector Machines**: Binary classification demo on the MNIST dataset.
-* **Preprocessing**: Different preprocessing demos.
+* Kmeans
+* Neural networks
+* Support Vector Machine
+* Federated Budget Support Vector Machine
+* Distributed Support Vector Machine
 
 ### POM2:
 
-* **Kmeans**: Clustering demo on the PIMA dataset.
-* **Neural Networks**: Multiclass Classification demo on the MNIST dataset.
-* **Suport Vector Machines**: Binary classification demo on the MNIST dataset.
-* **Preprocessing**: Different preprocessing demos.
+* Kmeans
+* Neural networks
+* Support Vector Machine
+* Federated Budget Support Vector Machine
 
 ### POM3:
 
-* **Kmeans**: Clustering demo on the PIMA dataset.
-* **Neural Networks**: Multiclass Classification demo on the MNIST dataset.
-* **Suport Vector Machines**: Binary classification demo on the MNIST dataset.
-* **Preprocessing**: Different preprocessing demos.
+* Kmeans
+* Neural networks
+* Support Vector Machine
+* Federated Budget Support Vector Machine
 
 ### POM4: 
 
-* **LR**: Linear Regression demo on the redwine dataset.
-* **Kmeans_pm**: Clustering demo on a synthetic dataset.
-* **Preprocessing**: Different preprocessing demos.
+* Linear Regression
+* Logistic Classifier
+* Multiclass Logistic Classifier
+* Clustering Kmeans
+* Kernel Regression
+* Budget Distributed Support Vector Machine
 
 ### POM5: 
 
-* **LR**: Linear Regression demo on the redwine dataset.
-* **Kmeans_pm**: Clustering demo on a synthetic dataset.
-* **Preprocessing**: Different preprocessing demos.
+Linear Regression
+Logistic Classifier
+Multiclass Logistic Classifier
+Clustering Kmeans
+Kernel Regression
+Budget Distributed Support Vector Machine
+Multiclass Budget Distributed Support Vector Machine
 
-### POM6: 
+## POM6: 
 
-* **RR**: Ridge Regression demo on the redwine dataset.
-* **Kmeans_pm**: Clustering demo on a synthetic dataset (public model).
-* **LC_pm**: Binary Logistic Classifier: Binary Classification demo on the MNIST dataset (public model). Includes **normalization** example.
-* **MLC_pm**: Multiclass Logistic Classifier: Multiclass Classification demo on the MNIST dataset (public model).
-* **KR_pm**: Kernel Regression demo on a synthetic dataset.
-* **Preprocessing**: Different preprocessing demos.
+Ridge Regression
+Logistic Classifier
+Multiclass Logistic Classifier
+Clustering Kmeans
+Kernel Regression
+Budget Distributed Support Vector Machine
+Multiclass Budget Distributed Support Vector Machine
 
 ### Preprocessing:
 * **Check data**: Check that the provided data at workers is in accordance with the data type description.
@@ -65,6 +74,7 @@ The pycloudmessenger package requires a credentials file to access the cloud ser
 * **Ad-hoc preprocessing**: Preprocess data at workers using logarithmic scale transformation and outlier clipping.
 * **Image reshape**: Preprocess data at workers changing the height and width of images and vectorization.
 * **Normalization**: Normalize data at workers to either have zero mean and stardard deviation one, or to be within zero and one.
+* **Noise injection**: Adds noise to thr input data.
 * **Principal component analysis**: Dimensionality reduction at workers using PCA algorithm.
 * **Greedy feature selection**: Greedy feature selection at workers using a linear model.
 * **Frequency feature selection**: Remove some features at workers based on frequency of appearance.
@@ -75,7 +85,6 @@ The pycloudmessenger package requires a credentials file to access the cloud ser
 * **Missing data imputation**: Missing data imputation for vertical partitioning datasets.
 * **Data value estimation (a priori)**: Data value estimation for every worker using different metrics.
 * **Data value estimation (a posteriori)**: Data value estimation for every worker using AUC with a greedy incremental approach.
-
 
 The output files are stored in the corresponding `results/` folder.
 
