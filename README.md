@@ -49,23 +49,23 @@ The pycloudmessenger package requires a credentials file to access the cloud ser
 
 ### POM5: 
 
-Linear Regression
-Logistic Classifier
-Multiclass Logistic Classifier
-Clustering Kmeans
-Kernel Regression
-Budget Distributed Support Vector Machine
-Multiclass Budget Distributed Support Vector Machine
+* Linear Regression
+* Logistic Classifier
+* Multiclass Logistic Classifier
+* Clustering Kmeans
+* Kernel Regression
+* Budget Distributed Support Vector Machine
+* Multiclass Budget Distributed Support Vector Machine
 
 ## POM6: 
 
-Ridge Regression
-Logistic Classifier
-Multiclass Logistic Classifier
-Clustering Kmeans
-Kernel Regression
-Budget Distributed Support Vector Machine
-Multiclass Budget Distributed Support Vector Machine
+* Ridge Regression
+* Logistic Classifier
+* Multiclass Logistic Classifier
+* Clustering Kmeans
+* Kernel Regression
+* Budget Distributed Support Vector Machine
+* Multiclass Budget Distributed Support Vector Machine
 
 ### Preprocessing:
 * **Check data**: Check that the provided data at workers is in accordance with the data type description.
