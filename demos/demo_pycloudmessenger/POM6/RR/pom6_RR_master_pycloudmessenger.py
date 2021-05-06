@@ -174,6 +174,11 @@ if __name__ == "__main__":
 
         err_onnx = np.mean((preds_tst.ravel() - pred_onx.ravel())**2)
         print('Error in ONNX predictions is %f' %err_onnx )
+        print('=' * 80)
+
+        # Model export to PMML
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pmml'
+        model.save(output_filename_model)
 
         display('Terminating all worker nodes.', logger, True)
         mn.terminate_workers()
@@ -190,6 +195,7 @@ if __name__ == "__main__":
         display('\n---------------------------------------------------------------------', logger, True)
         display('------------------------- Training not completed ----------------------', logger, True)
         display('----------------------------------------------------------------------\n', logger, True)
+
 
 
 

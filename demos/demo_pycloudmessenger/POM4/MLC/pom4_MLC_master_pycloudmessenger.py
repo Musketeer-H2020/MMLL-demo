@@ -10,7 +10,9 @@ import time
 import json
 import sys, os
 import numpy as np
+import numpy as np
 import pickle
+import onnxruntime as rt  # pip install onnxruntime
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -189,9 +191,30 @@ if __name__ == "__main__":
             classes = target_data_description['output_type'][0]['values']
             eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, logger, True, mn, classes, o_val_dict, o_tst_dict, preds_val, preds_tst, figures_folder)
         except:
+            raise
+            '''
             print('STOP AT eval_multiclass_classification')
             import code
             code.interact(local=locals())
+            '''
+
+        # Model export to ONXX
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.onnx'
+        model.save(output_filename_model)
+
+        # Compute the prediction with ONNX Runtime
+        sess = rt.InferenceSession(output_filename_model)
+        input_name = sess.get_inputs()[0].name
+        label_name = sess.get_outputs()[0].name
+        pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+
+        err_onnx = np.sum((np.array(preds_tst).ravel() != pred_onx.ravel()))
+        print('Error in ONNX predictions is %f' %err_onnx )
+        print('=' * 80)
+        
+        # Model export to PMML
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pmml'
+        model.save(output_filename_model)
 
         display('Terminating all worker nodes.', logger, True)
         mn.terminate_workers()

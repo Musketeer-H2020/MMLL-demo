@@ -10,6 +10,8 @@ import time
 import json
 import sys, os
 import pickle
+import onnxruntime as rt  # pip install onnxruntime
+import numpy as np
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -101,7 +103,6 @@ if __name__ == "__main__":
     if input_data_description is not None:
         model_parameters = {}
         model_parameters.update({'Nmaxiter': 10})
-        model_parameters.update({'Nmaxiter': 2})
         model_parameters.update({'conv_stop': 0.005})
         model_parameters.update({'mu': 0.3})
         model_parameters.update({'input_data_description': input_data_description})
@@ -167,6 +168,24 @@ if __name__ == "__main__":
         Xval_b = mn.add_bias(Xval)
         Xtst_b = mn.add_bias(Xtst)
         eval_regression(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, model_loaded, logger, True)
+
+        # Model export to ONXX
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.onnx'
+        model.save(output_filename_model)
+
+        # Compute the prediction with ONNX Runtime
+        sess = rt.InferenceSession(output_filename_model)
+        input_name = sess.get_inputs()[0].name
+        label_name = sess.get_outputs()[0].name
+        pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+
+        err_onnx = np.mean((preds_tst.ravel() - pred_onx.ravel())**2)
+        print('Error in ONNX predictions is %f' %err_onnx )
+        print('=' * 80)
+
+        # Model export to PMML
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pmml'
+        model.save(output_filename_model)
 
         display('Terminating all worker nodes.', logger, True)
         mn.terminate_workers()

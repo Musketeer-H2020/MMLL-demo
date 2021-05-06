@@ -9,7 +9,9 @@ import argparse
 import time
 import json
 import sys, os
+import numpy as np
 import pickle
+import onnxruntime as rt  # pip install onnxruntime
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -210,6 +212,23 @@ if __name__ == "__main__":
         figures_folder = './results/figures/'
         
         eval_regression(pom, model_type, dataset_name, Xval, yval, Xtst, ytst, preds_val, preds_tst, model_loaded, logger, True)
+
+        # Model export to ONXX
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.onnx'
+        model.save(output_filename_model)
+
+        # Compute the prediction with ONNX Runtime
+        sess = rt.InferenceSession(output_filename_model)
+        input_name = sess.get_inputs()[0].name
+        label_name = sess.get_outputs()[0].name
+        pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+        err_onnx = np.sum((np.array(preds_tst).ravel() - pred_onx.ravel())**2)
+        print('Error in ONNX predictions is %f' %err_onnx )
+        print('=' * 80)
+
+        # Model export to PMML
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pmml'
+        model.save(output_filename_model)
 
         display('Terminating all worker nodes.', logger, True)
         mn.terminate_workers()

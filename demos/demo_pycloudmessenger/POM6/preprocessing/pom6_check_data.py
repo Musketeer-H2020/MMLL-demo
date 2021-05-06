@@ -131,8 +131,12 @@ if __name__ == "__main__":
     mn.create_model_Master(model_type, model_parameters=model_parameters)
     display('MMLL model %s is ready for training!' % model_type, logger, True)
 
+    # inputs and targets
+    #display('Checking data at workers', logger, True)
+    #err, bad_workers = mn.check_data_at_workers(input_data_description, target_data_description)
+
     display('Checking data at workers', logger, True)
-    err, bad_workers = mn.check_data_at_workers(input_data_description, target_data_description)
+    err, bad_workers = mn.check_data_at_workers(input_data_description)
     
     if err is None:
         display('=' * 50, logger, True)

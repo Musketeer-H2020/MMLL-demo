@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="JPMML-SkLearn" version="1.6.18"/>
+		<Timestamp>2021-05-04T08:18:30Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension>PMMLPipeline(steps=[('classifier', LogisticRegression())])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="y" optype="categorical" dataType="double">
+			<Value value="0.0"/>
+			<Value value="1.0"/>
+		</DataField>
+		<DataField name="x1" optype="continuous" dataType="double"/>
+		<DataField name="x2" optype="continuous" dataType="double"/>
+		<DataField name="x3" optype="continuous" dataType="double"/>
+		<DataField name="x4" optype="continuous" dataType="double"/>
+		<DataField name="x5" optype="continuous" dataType="double"/>
+		<DataField name="x6" optype="continuous" dataType="double"/>
+		<DataField name="x7" optype="continuous" dataType="double"/>
+		<DataField name="x8" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<RegressionModel functionName="classification" algorithmName="sklearn.linear_model._logistic.LogisticRegression" normalizationMethod="logit">
+		<MiningSchema>
+			<MiningField name="y" usageType="target"/>
+			<MiningField name="x1"/>
+			<MiningField name="x2"/>
+			<MiningField name="x3"/>
+			<MiningField name="x4"/>
+			<MiningField name="x5"/>
+			<MiningField name="x6"/>
+			<MiningField name="x7"/>
+			<MiningField name="x8"/>
+		</MiningSchema>
+		<Output>
+			<OutputField name="probability(0.0)" optype="continuous" dataType="double" feature="probability" value="0.0"/>
+			<OutputField name="probability(1.0)" optype="continuous" dataType="double" feature="probability" value="1.0"/>
+		</Output>
+		<RegressionTable intercept="-0.4253313031821801" targetCategory="1.0">
+			<NumericPredictor name="x1" coefficient="0.3394735587452353"/>
+			<NumericPredictor name="x2" coefficient="0.48345694179073034"/>
+			<NumericPredictor name="x3" coefficient="-0.03954608412238422"/>
+			<NumericPredictor name="x4" coefficient="-0.09620468065846409"/>
+			<NumericPredictor name="x5" coefficient="0.08582359187399084"/>
+			<NumericPredictor name="x6" coefficient="0.08966166525297317"/>
+			<NumericPredictor name="x7" coefficient="0.34504395413594763"/>
+			<NumericPredictor name="x8" coefficient="-0.22582718817556413"/>
+		</RegressionTable>
+		<RegressionTable intercept="0.0" targetCategory="0.0"/>
+	</RegressionModel>
+</PMML>

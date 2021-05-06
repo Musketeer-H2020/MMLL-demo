@@ -10,6 +10,7 @@ import json
 import sys
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
+import numpy as np
 
 try:
     from MMLL.nodes.WorkerNode import WorkerNode

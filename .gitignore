@@ -132,5 +132,6 @@ dmypy.json
 *musketeer.json*
 
 input_data/
-
 *.pkl
+
+current_taskname.txt

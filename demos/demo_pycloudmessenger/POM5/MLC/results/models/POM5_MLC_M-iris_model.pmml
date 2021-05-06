@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="JPMML-SkLearn" version="1.6.18"/>
+		<Timestamp>2021-05-05T14:43:45Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension>PMMLPipeline(steps=[('classifier', LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=100,
+                   multi_class='ovr', n_jobs=None, penalty='l2',
+                   random_state=None, solver='liblinear', tol=0.0001, verbose=0,
+                   warm_start=False))])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="y" optype="categorical" dataType="string">
+			<Value value="Iris-setosa"/>
+			<Value value="Iris-versicolor"/>
+			<Value value="Iris-virginica"/>
+		</DataField>
+		<DataField name="x1" optype="continuous" dataType="double"/>
+		<DataField name="x2" optype="continuous" dataType="double"/>
+		<DataField name="x3" optype="continuous" dataType="double"/>
+		<DataField name="x4" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<MiningModel functionName="classification" algorithmName="sklearn.linear_model._logistic.LogisticRegression">
+		<MiningSchema>
+			<MiningField name="y" usageType="target"/>
+			<MiningField name="x1"/>
+			<MiningField name="x2"/>
+			<MiningField name="x3"/>
+			<MiningField name="x4"/>
+		</MiningSchema>
+		<Segmentation multipleModelMethod="modelChain" missingPredictionTreatment="returnMissing">
+			<Segment id="1">
+				<True/>
+				<RegressionModel functionName="regression" normalizationMethod="logit">
+					<MiningSchema>
+						<MiningField name="x1"/>
+						<MiningField name="x2"/>
+						<MiningField name="x3"/>
+						<MiningField name="x4"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(Iris-setosa)" optype="continuous" dataType="double" isFinalResult="false"/>
+					</Output>
+					<RegressionTable intercept="0.043671988899309316">
+						<NumericPredictor name="x1" coefficient="0.022201625345931644"/>
+						<NumericPredictor name="x2" coefficient="0.2256155535659644"/>
+						<NumericPredictor name="x3" coefficient="-0.43285446240480396"/>
+						<NumericPredictor name="x4" coefficient="-0.19078289666400425"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+			<Segment id="2">
+				<True/>
+				<RegressionModel functionName="regression" normalizationMethod="logit">
+					<MiningSchema>
+						<MiningField name="x1"/>
+						<MiningField name="x2"/>
+						<MiningField name="x3"/>
+						<MiningField name="x4"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(Iris-versicolor)" optype="continuous" dataType="double" isFinalResult="false"/>
+					</Output>
+					<RegressionTable intercept="-0.02358709128899754">
+						<NumericPredictor name="x1" coefficient="-0.0953201267382568"/>
+						<NumericPredictor name="x2" coefficient="-0.15764081572381922"/>
+						<NumericPredictor name="x3" coefficient="0.08438537636236429"/>
+						<NumericPredictor name="x4" coefficient="0.020391948630477715"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+			<Segment id="3">
+				<True/>
+				<RegressionModel functionName="regression" normalizationMethod="logit">
+					<MiningSchema>
+						<MiningField name="x1"/>
+						<MiningField name="x2"/>
+						<MiningField name="x3"/>
+						<MiningField name="x4"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(Iris-virginica)" optype="continuous" dataType="double" isFinalResult="false"/>
+					</Output>
+					<RegressionTable intercept="-0.06996186136062636">
+						<NumericPredictor name="x1" coefficient="-0.1644288261726854"/>
+						<NumericPredictor name="x2" coefficient="-0.22406961885467253"/>
+						<NumericPredictor name="x3" coefficient="0.2699424886051186"/>
+						<NumericPredictor name="x4" coefficient="0.15653412682973075"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+			<Segment id="4">
+				<True/>
+				<RegressionModel functionName="classification" normalizationMethod="simplemax">
+					<MiningSchema>
+						<MiningField name="y" usageType="target"/>
+						<MiningField name="decisionFunction(Iris-setosa)"/>
+						<MiningField name="decisionFunction(Iris-versicolor)"/>
+						<MiningField name="decisionFunction(Iris-virginica)"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="probability(Iris-setosa)" optype="continuous" dataType="double" feature="probability" value="Iris-setosa"/>
+						<OutputField name="probability(Iris-versicolor)" optype="continuous" dataType="double" feature="probability" value="Iris-versicolor"/>
+						<OutputField name="probability(Iris-virginica)" optype="continuous" dataType="double" feature="probability" value="Iris-virginica"/>
+					</Output>
+					<RegressionTable intercept="0.0" targetCategory="Iris-setosa">
+						<NumericPredictor name="decisionFunction(Iris-setosa)" coefficient="1.0"/>
+					</RegressionTable>
+					<RegressionTable intercept="0.0" targetCategory="Iris-versicolor">
+						<NumericPredictor name="decisionFunction(Iris-versicolor)" coefficient="1.0"/>
+					</RegressionTable>
+					<RegressionTable intercept="0.0" targetCategory="Iris-virginica">
+						<NumericPredictor name="decisionFunction(Iris-virginica)" coefficient="1.0"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+		</Segmentation>
+	</MiningModel>
+</PMML>

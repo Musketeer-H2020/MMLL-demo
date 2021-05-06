@@ -11,6 +11,7 @@ import json
 import sys, os
 import numpy as np
 import pickle
+import onnxruntime as rt  # pip install onnxruntime
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -190,6 +191,26 @@ if __name__ == "__main__":
         Xval_b = mn.add_bias(Xval)
         Xtst_b = mn.add_bias(Xtst)
         roc_auc_val, roc_auc_tst = eval_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, True, mn, figures_folder)
+
+        # Model export to ONXX
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.onnx'
+        model.save(output_filename_model)
+
+        # Compute the prediction with ONNX Runtime
+        sess = rt.InferenceSession(output_filename_model)
+        input_name = sess.get_inputs()[0].name
+        label_name = sess.get_outputs()[0].name
+        #pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+        prob_name = sess.get_outputs()[1].name
+        pred_onx = sess.run([prob_name], {input_name: Xtst.astype(np.float32)})[0]
+        pred_onx_postproc = np.array([p[1] for p in pred_onx])
+        err_onnx = np.mean((preds_tst.ravel() - pred_onx_postproc.ravel())**2)
+        print('Error in ONNX predictions is %f' %err_onnx )
+        print('=' * 80)
+
+        # Model export to PMML
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pmml'
+        model.save(output_filename_model)
 
         display('Terminating all worker nodes.', logger, True)
         mn.terminate_workers()

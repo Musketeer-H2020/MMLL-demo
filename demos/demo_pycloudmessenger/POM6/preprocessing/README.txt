@@ -19,6 +19,20 @@ python3 pom6_worker.py --dataset income_raw --verbose 1 --id 3 &
 sleep 2
 python3 pom6_worker.py --dataset income_raw --verbose 1 --id 4 &
 
+######################   Check_data Kmeans DEMO
+
+python3 pom6_check_data_Kmeans.py --dataset income_raw --verbose 1
+
+python3 pom6_worker_Kmeans.py --dataset income_raw --verbose 1 --id 0
+
+python3 pom6_worker_Kmeans.py --dataset income_raw --verbose 1 --id 1 &
+sleep 2
+python3 pom6_worker_Kmeans.py --dataset income_raw --verbose 1 --id 2 &
+sleep 2
+python3 pom6_worker_Kmeans.py --dataset income_raw --verbose 1 --id 3 &
+sleep 2
+python3 pom6_worker_Kmeans.py --dataset income_raw --verbose 1 --id 4 &
+
 
 ######################   Check_data DEMO
 # Wrong data in workers 0 y 2

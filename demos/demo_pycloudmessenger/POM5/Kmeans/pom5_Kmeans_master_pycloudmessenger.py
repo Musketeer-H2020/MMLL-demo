@@ -10,6 +10,8 @@ import time
 import json
 import sys, os
 import pickle
+import onnxruntime as rt  # pip install onnxruntime
+import numpy as np
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -114,6 +116,9 @@ if __name__ == "__main__":
     mn.create_model_Master(model_type, model_parameters=model_parameters)
     display('MMLL model %s is ready for training!' % model_type, logger, True)
 
+    display('Checking data at workers', logger, True)
+    err, bad_workers = mn.check_data_at_workers(input_data_description)
+
     # We start the training procedure.
     display('Training the model %s' % model_type, logger, True)
     t_ini = time.time()
@@ -170,6 +175,24 @@ if __name__ == "__main__":
         # Warning, these evaluation methods are not part of the MMLL library, they are only intended
         # to be used for the demos. Use them at your own risk.   
         eval_clustering(pom, model_type, dataset_name, Xtst, model_loaded.c, logger, True)
+
+        # Model export to ONXX
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.onnx'
+        model.save(output_filename_model)
+
+        # Compute the prediction with ONNX Runtime
+        sess = rt.InferenceSession(output_filename_model)
+        input_name = sess.get_inputs()[0].name
+        label_name = sess.get_outputs()[0].name
+        pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+        err_onnx = np.sum((np.array(preds_tst).ravel() != pred_onx.ravel()))
+
+        print('Error in ONNX predictions is %f' %err_onnx )
+        print('=' * 80)
+
+        # Model export to PMML
+        output_filename_model = './results/models/POM' + str(pom) + '_' + model_type + '_' + dataset_name + '_model.pmml'
+        model.save(output_filename_model)
 
         display('Terminating all worker nodes.', logger, True)
         mn.terminate_workers()
