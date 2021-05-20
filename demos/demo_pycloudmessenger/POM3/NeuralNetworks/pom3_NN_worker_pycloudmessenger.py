@@ -19,6 +19,9 @@ import logging
 import json
 import numpy as np
 import sys, os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' # Disables tensorflow warnings
+import tensorflow as tf
+import onnxruntime
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -145,3 +148,22 @@ if __name__ == "__main__":
     output_filename = 'Worker_' + str(user_name) + '_NN_confusion_matrix_' + dataset_name + '.png'
     title = 'NN confusion matrix in test set worker'
     plot_cm_seaborn(preds_tst, y, classes, title, output_filename, logger, verbose, normalize=True)
+
+
+    # Load Tf SavedModel and check results
+    model_loaded = tf.keras.models.load_model(output_filename_model)
+    preds_tst = model_loaded.predict(Xtst)
+    preds_tst = np.argmax(preds_tst, axis=-1) # Convert to labels
+
+
+    # Model export to ONXX
+    output_filename_model = './results/models/Worker_' + str(user_name) + '_' + dataset_name + '_model.onnx'
+    model.save(output_filename_model)
+
+    # Compute the prediction with ONNX Runtime
+    onnx_session = onnxruntime.InferenceSession(output_filename_model)
+    onnx_inputs = {onnx_session.get_inputs()[0].name: Xtst}
+    onnx_output = onnx_session.run(None, onnx_inputs)[0]
+    onnx_output = np.argmax(onnx_output, axis=-1) # Convert to labels
+    err_onnx = np.mean((preds_tst.ravel() - onnx_output.ravel())**2)
+    display('Error in ONNX predictions is %f' %err_onnx, logger, verbose)

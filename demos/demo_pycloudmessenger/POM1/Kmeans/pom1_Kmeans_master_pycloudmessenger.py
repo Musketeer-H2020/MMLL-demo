@@ -19,6 +19,9 @@ import logging
 import json
 import time
 import sys, os
+import pickle
+import numpy as np
+import onnxruntime as rt
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -171,6 +174,31 @@ if __name__ == "__main__":
     output_filename = 'Master_clusters_' + dataset_name + '.png'
     title = 'Kmeans clustering with 2 PCA components in test set master'
     Kmeans_plot(Xtst, preds_tst, title, output_filename, logger, verbose)
+
+
+    # Load pkl model and check results
+    with open(output_filename_model, 'rb') as f:
+        model = pickle.load(f)
+    preds_tst = model.predict(Xtst)
+
+
+    # Model export to ONXX
+    output_filename_model = './results/models/Master_' + dataset_name + '_model.onnx'
+    model.save(output_filename_model)
+
+    # Compute the prediction with ONNX Runtime
+    sess = rt.InferenceSession(output_filename_model)
+    input_name = sess.get_inputs()[0].name
+    label_name = sess.get_outputs()[0].name
+    pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+    err_onnx = np.mean((preds_tst.ravel() - pred_onx.ravel())**2)
+    display('Error in ONNX predictions is %f' %err_onnx, logger, verbose)
+
+
+    # Model export to PMML
+    output_filename_model = './results/models/Master_' + dataset_name + '_model.pmml'
+    model.save(output_filename_model)
+
 
     # Terminate workers
     display('Terminating all worker nodes.', logger, verbose)

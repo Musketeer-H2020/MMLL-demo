@@ -3,5 +3,5 @@ seaborn==0.10.1
 gmpy2==2.0.8
 http://github.com/IBM/pycloudmessenger/archive/v0.7.1.tar.gz
 git+https://github.com/Musketeer-H2020/MMLL.git
-onnxruntime=1.7.0
+onnxruntime==1.7.0
  

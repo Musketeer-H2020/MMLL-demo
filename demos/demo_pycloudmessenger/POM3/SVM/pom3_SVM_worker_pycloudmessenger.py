@@ -19,6 +19,8 @@ import logging
 import json
 import sys, os
 import numpy as np
+import pickle
+import onnxruntime as rt
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -155,3 +157,27 @@ if __name__ == "__main__":
     output_filename = 'Worker_' + str(user_name) + '_SVM_confusion_matrix_' + dataset_name + '.png'
     title = 'SVM confusion matrix in test set worker'
     plot_cm_seaborn(preds_tst, ytst, classes, title, output_filename, logger, verbose, normalize=True)
+
+
+    # Load pkl model and check results
+    with open(output_filename_model, 'rb') as f:
+        model = pickle.load(f)
+    preds_tst = model.predict(Xtst)
+
+
+    # Model export to ONXX
+    output_filename_model = './results/models/Worker_' + str(user_name) + '_' + dataset_name + '_model.onnx'
+    model.save(output_filename_model)
+
+    # Compute the prediction with ONNX Runtime
+    sess = rt.InferenceSession(output_filename_model)
+    input_name = sess.get_inputs()[0].name
+    label_name = sess.get_outputs()[0].name
+    pred_onx = sess.run([label_name], {input_name: Xtst.astype(np.float32)})[0]
+    err_onnx = np.mean((preds_tst.ravel() - pred_onx.ravel())**2)
+    display('Error in ONNX predictions is %f' %err_onnx, logger, verbose)
+
+
+    # Model export to PMML
+    output_filename_model = './results/models/Worker_' + str(user_name) + '_' + dataset_name + '_model.pmml'
+    model.save(output_filename_model)
