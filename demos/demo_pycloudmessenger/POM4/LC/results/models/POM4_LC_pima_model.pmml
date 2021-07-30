@@ -2,7 +2,7 @@
 <PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
 	<Header>
 		<Application name="JPMML-SkLearn" version="1.6.18"/>
-		<Timestamp>2021-05-06T07:45:03Z</Timestamp>
+		<Timestamp>2021-07-29T10:05:30Z</Timestamp>
 	</Header>
 	<MiningBuildTask>
 		<Extension>PMMLPipeline(steps=[('classifier', LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
@@ -41,15 +41,15 @@
 			<OutputField name="probability(0.0)" optype="continuous" dataType="double" feature="probability" value="0.0"/>
 			<OutputField name="probability(1.0)" optype="continuous" dataType="double" feature="probability" value="1.0"/>
 		</Output>
-		<RegressionTable intercept="-0.19166622743747713" targetCategory="1.0">
-			<NumericPredictor name="x1" coefficient="0.11829764775892981"/>
-			<NumericPredictor name="x2" coefficient="0.2044773433418876"/>
-			<NumericPredictor name="x3" coefficient="0.012599398879980806"/>
-			<NumericPredictor name="x4" coefficient="0.009050955738094002"/>
-			<NumericPredictor name="x5" coefficient="0.08858313168191956"/>
-			<NumericPredictor name="x6" coefficient="0.060438701702333564"/>
-			<NumericPredictor name="x7" coefficient="0.1765481284123229"/>
-			<NumericPredictor name="x8" coefficient="0.0013044513820061887"/>
+		<RegressionTable intercept="-0.2992743579029369" targetCategory="1.0">
+			<NumericPredictor name="x1" coefficient="0.19891892627625507"/>
+			<NumericPredictor name="x2" coefficient="0.27562142956874136"/>
+			<NumericPredictor name="x3" coefficient="-0.014762644830295102"/>
+			<NumericPredictor name="x4" coefficient="0.023230154444852935"/>
+			<NumericPredictor name="x5" coefficient="0.12372549246509362"/>
+			<NumericPredictor name="x6" coefficient="0.08424748073935584"/>
+			<NumericPredictor name="x7" coefficient="0.23826453075279486"/>
+			<NumericPredictor name="x8" coefficient="-0.06836154999717556"/>
 		</RegressionTable>
 		<RegressionTable intercept="0.0" targetCategory="0.0"/>
 	</RegressionModel>

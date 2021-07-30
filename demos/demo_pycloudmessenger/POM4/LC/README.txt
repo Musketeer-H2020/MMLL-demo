@@ -30,7 +30,7 @@ DEBUG
 
 python3 pom4_LC_master_pycloudmessenger.py --dataset pima --verbose 1
 
-python3 pom4_LC_worker_pycloudmessenger.py --dataset pima --verbose 1 --id 0
+python3 pom4_LC_worker_pycloudmessenger.py --dataset pima --verbose 1 --id 0 &
    
 python3 pom4_LC_worker_pycloudmessenger.py --dataset pima --verbose 1 --id 1 &  
 python3 pom4_LC_worker_pycloudmessenger.py --dataset pima --verbose 1 --id 2 &  

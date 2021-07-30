@@ -30,7 +30,7 @@ except Exception as err:
 
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
 from demo_tools.mylogging.logger_v1 import Logger
-from demo_tools.data_connectors.Load_from_file import Load_From_File as DC                          # Data connector
+from demo_tools.data_connectors.Load_from_file_Nworkers import Load_From_File as DC                          # Data connector
 from demo_tools.evaluation_tools import eval_regression, create_folders
 
 if __name__ == "__main__":
@@ -61,6 +61,8 @@ if __name__ == "__main__":
     NCcandidates = 4 * NC
     minvalue = -2
     maxvalue = 2
+    momentum = 1
+
 
     # We retrieve double number of centroids, to finally select those with maximal projection
     C = estimate_centroids(NC, NI, NCcandidates, minvalue, maxvalue, False)
@@ -116,8 +118,10 @@ if __name__ == "__main__":
 
         if dataset_name == 'sinc1D':
             model_parameters.update({'fsigma': 0.15})
-            model_parameters.update({'mu': 1.0})
+            model_parameters.update({'mu': 0.2})
             model_parameters.update({'Nmaxiter': 60})
+            model_parameters.update({'momentum': 1})
+            model_parameters.update({'regularization': 0.00001})
 
         model_parameters.update({'C': C})
         model_parameters.update({'NC': NC})

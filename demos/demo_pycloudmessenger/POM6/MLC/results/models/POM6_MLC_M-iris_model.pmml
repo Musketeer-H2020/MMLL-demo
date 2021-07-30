@@ -2,7 +2,7 @@
 <PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
 	<Header>
 		<Application name="JPMML-SkLearn" version="1.6.18"/>
-		<Timestamp>2021-05-04T16:40:00Z</Timestamp>
+		<Timestamp>2021-07-22T06:28:03Z</Timestamp>
 	</Header>
 	<MiningBuildTask>
 		<Extension>PMMLPipeline(steps=[('classifier', LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
@@ -43,11 +43,11 @@
 					<Output>
 						<OutputField name="decisionFunction(Iris-setosa)" optype="continuous" dataType="double" isFinalResult="false"/>
 					</Output>
-					<RegressionTable intercept="0.6257577277513159">
-						<NumericPredictor name="x1" coefficient="0.9096943141135447"/>
-						<NumericPredictor name="x2" coefficient="3.0298351267096377"/>
-						<NumericPredictor name="x3" coefficient="-4.792643029453262"/>
-						<NumericPredictor name="x4" coefficient="-2.1812786716082817"/>
+					<RegressionTable intercept="0.043307303061456366">
+						<NumericPredictor name="x1" coefficient="0.02163592549077859"/>
+						<NumericPredictor name="x2" coefficient="0.22704245642157295"/>
+						<NumericPredictor name="x3" coefficient="-0.4330151742896985"/>
+						<NumericPredictor name="x4" coefficient="-0.19096757142581305"/>
 					</RegressionTable>
 				</RegressionModel>
 			</Segment>
@@ -63,11 +63,11 @@
 					<Output>
 						<OutputField name="decisionFunction(Iris-versicolor)" optype="continuous" dataType="double" isFinalResult="false"/>
 					</Output>
-					<RegressionTable intercept="-0.011615068205510578">
-						<NumericPredictor name="x1" coefficient="-0.06196639690921178"/>
-						<NumericPredictor name="x2" coefficient="-0.04327966883364039"/>
-						<NumericPredictor name="x3" coefficient="-0.019912580151243385"/>
-						<NumericPredictor name="x4" coefficient="-0.0056809698318111565"/>
+					<RegressionTable intercept="-0.024389551769513802">
+						<NumericPredictor name="x1" coefficient="-0.09515076625391526"/>
+						<NumericPredictor name="x2" coefficient="-0.15737074526640957"/>
+						<NumericPredictor name="x3" coefficient="0.08399194281034246"/>
+						<NumericPredictor name="x4" coefficient="0.02084384695432642"/>
 					</RegressionTable>
 				</RegressionModel>
 			</Segment>
@@ -83,11 +83,11 @@
 					<Output>
 						<OutputField name="decisionFunction(Iris-virginica)" optype="continuous" dataType="double" isFinalResult="false"/>
 					</Output>
-					<RegressionTable intercept="-0.11284406138398588">
-						<NumericPredictor name="x1" coefficient="-0.26535821181878555"/>
-						<NumericPredictor name="x2" coefficient="-0.3695671978477522"/>
-						<NumericPredictor name="x3" coefficient="0.47147778561008546"/>
-						<NumericPredictor name="x4" coefficient="0.27107920405183117"/>
+					<RegressionTable intercept="-0.06879001116181381">
+						<NumericPredictor name="x1" coefficient="-0.16584477568016617"/>
+						<NumericPredictor name="x2" coefficient="-0.22342464897855635"/>
+						<NumericPredictor name="x3" coefficient="0.2710958027384217"/>
+						<NumericPredictor name="x4" coefficient="0.15694555541774569"/>
 					</RegressionTable>
 				</RegressionModel>
 			</Segment>

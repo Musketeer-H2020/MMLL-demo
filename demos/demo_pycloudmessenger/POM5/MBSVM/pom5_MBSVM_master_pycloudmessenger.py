@@ -70,15 +70,7 @@ if __name__ == "__main__":
     tm.wait_for_workers()
     # ==================================================
 
-    # We create centroids at random, and filter them
-    NC = 40
-    NI = 4
-    NCcandidates = 10 * NC
-    NCini = NC
-    minvalue = 0
-    maxvalue = 8.0
-    C = estimate_centroids(NCini, NI, NCcandidates, minvalue, maxvalue, False)
-    
+   
     #########################################
     display('Creating MasterNode under POM6, communicating through pycloudmessenger', logger, True)
     # Creating Comms object, needed by MMLL
@@ -123,10 +115,11 @@ if __name__ == "__main__":
                                 ]
                                 }    
 
-    if dataset_name == 'M-iris':
+    if dataset_name == 'M-iris_norm':
+        NI = 4
         input_data_description = {
-                    "NI": 4, 
-                    "input_types": [{"type": "num"}] * 4
+                    "NI": NI, 
+                    "input_types": [{"type": "num"}] * NI
                     }
         target_data_description = {
                                 "NT": 1, 
@@ -135,15 +128,25 @@ if __name__ == "__main__":
                                 ]
                                 }    
 
-    if dataset_name == 'M-iris':
+    if dataset_name == 'M-iris_norm':
+        minvalue = -2
+        maxvalue = 2
         fsigma = 1.0
         Nmaxiter = 10
         Csvm = 10
+        NC = 10
+        conv_stop = 0.001
+
+    # We create centroids at random, and filter them
+    NCcandidates = 10 * NC
+    NCini = NC
+    C = estimate_centroids(NCini, NI, NCcandidates, minvalue, maxvalue, False)
+
 
     if input_data_description is not None:
         model_parameters = {}
         model_parameters.update({'Nmaxiter': Nmaxiter})
-        model_parameters.update({'conv_stop': 0.01})
+        model_parameters.update({'conv_stop':conv_stop})
         model_parameters.update({'cr': cr})
         model_parameters.update({'input_data_description': input_data_description})
         model_parameters.update({'target_data_description': target_data_description})
@@ -164,11 +167,11 @@ if __name__ == "__main__":
     t_ini = time.time()
 
     # We can train the model without a validation set: 
-    mn.fit()
+    #mn.fit()
 
     # OR, if we can provide a validation set to Masternode, training can usually speed up
     [Xval, yval] = dc.get_data_val()
-    #mn.fit(Xval=Xval, yval=yval)
+    mn.fit(Xval=Xval, yval=yval)
 
     t_end = time.time()
     display('Training is complete: Training time = %s seconds' % str(t_end - t_ini)[0:6], logger, True)

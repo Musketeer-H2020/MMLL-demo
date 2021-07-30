@@ -124,14 +124,17 @@ if __name__ == "__main__":
         fsigma = 1.0
         Nmaxiter = 10
         Csvm = 10
+        landa = 0.5
     if dataset_name == 'M-mnist-dlp100':
         fsigma = 0.2
         Nmaxiter = 20
         Csvm = 10
+        landa = 0.5
     if dataset_name == 'M-mnist-dlp100-small':
         fsigma = 0.2
         Nmaxiter = 20
         Csvm = 10
+        landa = 0.5
 
     if input_data_description is not None and target_data_description is not None:
         model_parameters = {}
@@ -144,6 +147,7 @@ if __name__ == "__main__":
         model_parameters.update({'fsigma': fsigma})
         model_parameters.update({'Csvm': Csvm})
         model_parameters.update({'conv_stop': 0.01})
+        model_parameters.update({'landa': landa})
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description or target_data_description is missing\n' + '='*50 + '\n', logger, True)
         sys.exit()
@@ -192,7 +196,7 @@ if __name__ == "__main__":
         
         try:
             [Xval, yval] = dc.get_data_val()
-            o_val_dict, preds_val = model_loaded.predict(Xval)
+            preds_val = model_loaded.predict(Xval)
             e_val = np.array(yval.ravel() != np.array(preds_val).ravel()).astype(float)
             CE_val = np.mean(e_val) * 100.0
             display('Master_' + model_type + ': CE(%%) on validation set =  %s' % str(CE_val)[0:6], logger, True)
@@ -207,7 +211,7 @@ if __name__ == "__main__":
             '''
         try:
             [Xtst, ytst] = dc.get_data_tst()
-            o_tst_dict, preds_tst = model_loaded.predict(Xtst)
+            preds_tst = model_loaded.predict(Xtst)
             e_tst = np.array(ytst.ravel() != np.array(preds_tst).ravel()).astype(float)
             CE_tst = np.mean(e_tst) * 100.0
             display('Master_' + model_type + ': CE(%%) on test set =  %s' % str(CE_tst)[0:6], logger, True)
@@ -222,6 +226,10 @@ if __name__ == "__main__":
         classes = model.classes
         Xval_b = mn.add_bias(Xval).astype(float)
         Xtst_b = mn.add_bias(Xtst).astype(float)
+
+        o_val_dict = model_loaded.predict_soft(Xval)
+        o_tst_dict = model_loaded.predict_soft(Xtst)
+
         eval_multiclass_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, logger, True, mn, classes, o_val_dict, o_tst_dict, preds_val, preds_tst, figures_folder)
         #roc_auc_val, roc_auc_tst = eval_classification(pom, model_type, dataset_name, Xval_b, yval, Xtst_b, ytst, preds_val, preds_tst, logger, True, mn, figures_folder)
 

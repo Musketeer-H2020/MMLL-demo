@@ -114,12 +114,15 @@ if __name__ == "__main__":
     if dataset_name == 'M-iris':
         mu = 0.05
         Nmaxiter = 20
+        momentum = 0.0
     if dataset_name == 'M-mnist-dlp100':
         mu = 0.01
         Nmaxiter = 50       
+        momentum = 0.0
     if dataset_name == 'M-mnist-dlp100-small':
         mu = 0.01
         Nmaxiter = 50
+        momentum = 0.0
 
     if input_data_description is not None and target_data_description is not None:
         model_parameters = {}
@@ -129,6 +132,7 @@ if __name__ == "__main__":
         model_parameters.update({'input_data_description': input_data_description})
         model_parameters.update({'target_data_description': target_data_description})
         model_parameters.update({'mu': mu})
+        model_parameters.update({'momentum': momentum})
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description or target_data_description is missing\n' + '='*50 + '\n', logger, True)
         sys.exit()
@@ -141,11 +145,7 @@ if __name__ == "__main__":
     t_ini = time.time()
 
     # We can train the model without a validation set: 
-    #mn.fit()
-
-    # OR, if we can provide a validation set to Masternode, training can usually speed up
-    [Xval, yval] = dc.get_data_val()
-    mn.fit(Xval=Xval, yval=yval)
+    mn.fit()
 
     t_end = time.time()
     display('Training is complete: Training time = %s seconds' % str(t_end - t_ini)[0:6], logger, True)

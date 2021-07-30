@@ -132,15 +132,23 @@ if __name__ == "__main__":
         model_parameters = {}
 
         if dataset_name == 'sinc1D':
-            model_parameters.update({'fsigma': 0.15})
-            model_parameters.update({'mu': 1.0})
-            model_parameters.update({'Nmaxiter': 20})
+            fsigma = 0.15
+            mu = 0.5
+            Nmaxiter = 20
+            momentum = 1.0
+            regularization = 0.0001
 
+        model_parameters.update({'fsigma': fsigma})
+        model_parameters.update({'mu': mu})
+        model_parameters.update({'Nmaxiter': Nmaxiter})
         model_parameters.update({'C': C})
         model_parameters.update({'NC': NC})
         model_parameters.update({'conv_stop': 0.00001})
         model_parameters.update({'cr': cr})
         model_parameters.update({'input_data_description': input_data_description})
+        model_parameters.update({'momentum': momentum})
+        model_parameters.update({'regularization': regularization})
+
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description is missing\n' + '='*50 + '\n', logger, True)
         sys.exit()

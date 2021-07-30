@@ -2,7 +2,7 @@
 <PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
 	<Header>
 		<Application name="JPMML-SkLearn" version="1.6.18"/>
-		<Timestamp>2021-05-05T12:26:28Z</Timestamp>
+		<Timestamp>2021-07-22T08:06:33Z</Timestamp>
 	</Header>
 	<MiningBuildTask>
 		<Extension>PMMLPipeline(steps=[('classifier', LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
@@ -41,15 +41,15 @@
 			<OutputField name="probability(0.0)" optype="continuous" dataType="double" feature="probability" value="0.0"/>
 			<OutputField name="probability(1.0)" optype="continuous" dataType="double" feature="probability" value="1.0"/>
 		</Output>
-		<RegressionTable intercept="-0.6078901088111096" targetCategory="1.0">
-			<NumericPredictor name="x1" coefficient="0.3452042806584151"/>
-			<NumericPredictor name="x2" coefficient="0.47796906040480713"/>
-			<NumericPredictor name="x3" coefficient="-0.034140770971961505"/>
-			<NumericPredictor name="x4" coefficient="-0.13744074717773716"/>
-			<NumericPredictor name="x5" coefficient="0.1426537026598059"/>
-			<NumericPredictor name="x6" coefficient="0.10445750009290178"/>
-			<NumericPredictor name="x7" coefficient="0.363784225051888"/>
-			<NumericPredictor name="x8" coefficient="0.04852296781858614"/>
+		<RegressionTable intercept="-0.3733458075242739" targetCategory="1.0">
+			<NumericPredictor name="x1" coefficient="0.2555286807743437"/>
+			<NumericPredictor name="x2" coefficient="0.31170832253348224"/>
+			<NumericPredictor name="x3" coefficient="-0.02439484564091166"/>
+			<NumericPredictor name="x4" coefficient="-0.039925750590363664"/>
+			<NumericPredictor name="x5" coefficient="0.16018117292881331"/>
+			<NumericPredictor name="x6" coefficient="0.1085747898668056"/>
+			<NumericPredictor name="x7" coefficient="0.2953394010811165"/>
+			<NumericPredictor name="x8" coefficient="-0.11828454985857328"/>
 		</RegressionTable>
 		<RegressionTable intercept="0.0" targetCategory="0.0"/>
 	</RegressionModel>

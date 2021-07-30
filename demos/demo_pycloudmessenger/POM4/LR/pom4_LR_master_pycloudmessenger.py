@@ -93,18 +93,20 @@ if __name__ == "__main__":
     ########################################
     input_data_description = None
     if dataset_name == 'redwine':
+        NI = 11
         input_data_description = {
-                    "NI": 11, 
+                    "NI": NI, 
                     "input_types": [
                     {"type": "num"}
-                    ] * 90
+                    ] * NI
                     }
 
     if input_data_description is not None:
         model_parameters = {}
         model_parameters.update({'Nmaxiter': 10})
-        model_parameters.update({'conv_stop': 0.005})
-        model_parameters.update({'mu': 0.3})
+        model_parameters.update({'conv_stop': 0.001})
+        model_parameters.update({'momentum': 1.0})        
+        model_parameters.update({'mu': 0.2})
         model_parameters.update({'input_data_description': input_data_description})
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description is missing\n' + '='*50 + '\n', logger, True)

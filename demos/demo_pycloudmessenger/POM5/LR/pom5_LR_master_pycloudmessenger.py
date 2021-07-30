@@ -120,10 +120,12 @@ if __name__ == "__main__":
                     }
     if input_data_description is not None:
         model_parameters = {}
-        model_parameters.update({'Nmaxiter': 10})
+        model_parameters.update({'Nmaxiter': 50})
         model_parameters.update({'conv_stop': 0.005})
         model_parameters.update({'cr': cr})
-        model_parameters.update({'mu': 0.05})
+        model_parameters.update({'mu': 0.2})        
+        model_parameters.update({'momentum': 1.0})
+        model_parameters.update({'minibatch': 1.0})
         model_parameters.update({'input_data_description': input_data_description})
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description is missing\n' + '='*50 + '\n', logger, True)
@@ -136,12 +138,8 @@ if __name__ == "__main__":
     display('Training the model %s' % model_type, logger, True)
     t_ini = time.time()
 
-    # We can train the model without a validation set: 
-    #mn.fit()
-
-    # OR, if we can provide a validation set to Masternode, training can usually speed up
-    [Xval, yval] = dc.get_data_val()
-    mn.fit(Xval=Xval, yval=yval)
+    # We train the model
+    mn.fit()
 
     t_end = time.time()
     display('Training is complete: Training time = %s seconds' % str(t_end - t_ini)[0:6], logger, True)

@@ -125,6 +125,7 @@ if __name__ == "__main__":
             model_parameters.update({'Csvm': 10})
             model_parameters.update({'Nmaxiter': 20})
             model_parameters.update({'mu': 0.001})
+            model_parameters.update({'momentum': 0.1})
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description is missing\n' + '='*50 + '\n', logger, True)
         sys.exit()
@@ -136,7 +137,11 @@ if __name__ == "__main__":
     display('Training the model %s' % model_type, logger, True)
     t_ini = time.time()
 
-    mn.fit()
+    #mn.fit()
+
+    # OR, if we can provide a validation set to Masternode, training can usually speed up
+    [Xval, yval] = dc.get_data_val()
+    mn.fit(Xval=Xval, yval=yval)
 
     t_end = time.time()
     display('Training is complete: Training time = %s seconds' % str(t_end - t_ini)[0:6], logger, True)

@@ -130,21 +130,30 @@ if __name__ == "__main__":
     if dataset_name == 'M-iris':
         mu = 0.05
         Nmaxiter = 20
+        momentum = 1
+        conv_stop = 0.005
+
     if dataset_name == 'M-mnist-dlp100':
         mu = 0.01
         Nmaxiter = 50       
+        momentum = 1
+        conv_stop = 0.005
+
     if dataset_name == 'M-mnist-dlp100-small':
         mu = 0.01
         Nmaxiter = 50
+        momentum = 1
+        conv_stop = 0.005
 
     if input_data_description is not None:
         model_parameters = {}
         model_parameters.update({'Nmaxiter': Nmaxiter})
-        model_parameters.update({'conv_stop': 0.01})
+        model_parameters.update({'conv_stop': conv_stop})
         model_parameters.update({'cr': cr})
         model_parameters.update({'input_data_description': input_data_description})
         model_parameters.update({'target_data_description': target_data_description})
         model_parameters.update({'mu': mu})
+        model_parameters.update({'momentum': momentum})
     else:
         display('\n' + '='*50 + '\nERROR: input_data_description is missing\n' + '='*50 + '\n', logger, True)
         sys.exit()

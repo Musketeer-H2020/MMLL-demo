@@ -113,6 +113,8 @@ if __name__ == "__main__":
         model_parameters.update({'Nmaxiter': Nmaxiter})
         model_parameters.update({'conv_stop': 0.005})
         model_parameters.update({'mu': mu})
+        model_parameters.update({'momentum': 0})
+        model_parameters.update({'regularization': 0.001})
         model_parameters.update({'input_data_description': input_data_description})
         model_parameters.update({'target_data_description': target_data_description})
     else:

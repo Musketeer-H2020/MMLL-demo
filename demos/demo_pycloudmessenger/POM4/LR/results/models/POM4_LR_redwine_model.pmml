@@ -2,7 +2,7 @@
 <PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
 	<Header>
 		<Application name="JPMML-SkLearn" version="1.6.18"/>
-		<Timestamp>2021-05-06T08:22:26Z</Timestamp>
+		<Timestamp>2021-07-29T09:47:29Z</Timestamp>
 	</Header>
 	<MiningBuildTask>
 		<Extension>PMMLPipeline(steps=[('classifier', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False))])</Extension>
@@ -36,18 +36,18 @@
 			<MiningField name="x10"/>
 			<MiningField name="x11"/>
 		</MiningSchema>
-		<RegressionTable intercept="5.528561414757557">
-			<NumericPredictor name="x1" coefficient="0.19768645521128997"/>
-			<NumericPredictor name="x2" coefficient="-0.16521292264351206"/>
-			<NumericPredictor name="x3" coefficient="-0.01951572821047376"/>
-			<NumericPredictor name="x4" coefficient="0.07479376506219643"/>
-			<NumericPredictor name="x5" coefficient="-0.09012774044394878"/>
-			<NumericPredictor name="x6" coefficient="0.026386168030260393"/>
-			<NumericPredictor name="x7" coefficient="-0.1299407336638595"/>
-			<NumericPredictor name="x8" coefficient="-0.24720330295151538"/>
-			<NumericPredictor name="x9" coefficient="0.04219358727974809"/>
-			<NumericPredictor name="x10" coefficient="0.19599258206492093"/>
-			<NumericPredictor name="x11" coefficient="0.1409034438873804"/>
+		<RegressionTable intercept="5.628188153305283">
+			<NumericPredictor name="x1" coefficient="0.07502786103471909"/>
+			<NumericPredictor name="x2" coefficient="-0.16282197556673839"/>
+			<NumericPredictor name="x3" coefficient="0.023761858713955447"/>
+			<NumericPredictor name="x4" coefficient="0.022482955928307027"/>
+			<NumericPredictor name="x5" coefficient="-0.08197034473841411"/>
+			<NumericPredictor name="x6" coefficient="0.029898218267817474"/>
+			<NumericPredictor name="x7" coefficient="-0.12204236981515115"/>
+			<NumericPredictor name="x8" coefficient="-0.11108838232292984"/>
+			<NumericPredictor name="x9" coefficient="-0.018430638041210923"/>
+			<NumericPredictor name="x10" coefficient="0.164484751768057"/>
+			<NumericPredictor name="x11" coefficient="0.23386125767373506"/>
 		</RegressionTable>
 	</RegressionModel>
 </PMML>

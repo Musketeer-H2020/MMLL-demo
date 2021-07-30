@@ -83,3 +83,11 @@ python pom1_NN_master_pycloudmessenger.py --user <user> --password <password> --
 python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
 python pom1_NN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
 
+
+==================================================================
+ Convolutional Neural Networks example
+==================================================================
+python pom1_CNN_master_pycloudmessenger.py --user <user> --password <password> --task_name <task_name>
+python pom1_CNN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 0
+python pom1_CNN_worker_pycloudmessenger.py --user <user> --password <password> --task_name <task_name> --id 1
+

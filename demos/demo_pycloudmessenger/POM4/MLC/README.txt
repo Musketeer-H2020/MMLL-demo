@@ -15,7 +15,7 @@ python3 pom4_MLC_master_pycloudmessenger.py --dataset M-iris --verbose 1
 
 (wait for the master to start listening for workers/cryptonode...)
 
-python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 0
+python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 0 &
    
 python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 1 &  
 python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 2 &  
@@ -31,7 +31,7 @@ DEBUG
 
 python3 pom4_MLC_master_pycloudmessenger.py --dataset M-iris --verbose 1
 
-python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 0
+python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 0 &
    
 python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 1 &  
 python3 pom4_MLC_worker_pycloudmessenger.py --dataset M-iris --verbose 1 --id 2 &  

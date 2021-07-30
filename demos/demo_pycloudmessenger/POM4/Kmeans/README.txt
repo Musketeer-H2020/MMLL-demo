@@ -28,7 +28,7 @@ DEBUG
 
 python3 pom4_Kmeans_master_pycloudmessenger.py --dataset synth2D --verbose 1
 
-python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 0  
+python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 0  &
 
 python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 1 &
 python3 pom4_Kmeans_worker_pycloudmessenger.py --dataset synth2D --verbose 1 --id 2 &

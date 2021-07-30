@@ -30,7 +30,7 @@ DEBUG
 
 python3 pom4_BSVM_master_pycloudmessenger.py --dataset synth2D-class --verbose 1
 
-python3 pom4_BSVM_worker_pycloudmessenger.py --dataset synth2D-class --verbose 1 --id 0
+python3 pom4_BSVM_worker_pycloudmessenger.py --dataset synth2D-class --verbose 1 --id 0 &
    
 python3 pom4_BSVM_worker_pycloudmessenger.py --dataset synth2D-class --verbose 1 --id 1 &  
 python3 pom4_BSVM_worker_pycloudmessenger.py --dataset synth2D-class --verbose 1 --id 2 &  

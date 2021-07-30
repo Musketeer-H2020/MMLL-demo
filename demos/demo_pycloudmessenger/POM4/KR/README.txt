@@ -30,7 +30,7 @@ DEBUG
 
 python3 pom4_KR_master_pycloudmessenger.py --dataset sinc1D --verbose 1
 
-python3 pom4_KR_worker_pycloudmessenger.py --dataset sinc1D --verbose 1 --id 0
+python3 pom4_KR_worker_pycloudmessenger.py --dataset sinc1D --verbose 1 --id 0 &
    
 python3 pom4_KR_worker_pycloudmessenger.py --dataset sinc1D --verbose 1 --id 1 &  
 python3 pom4_KR_worker_pycloudmessenger.py --dataset sinc1D --verbose 1 --id 2 &  

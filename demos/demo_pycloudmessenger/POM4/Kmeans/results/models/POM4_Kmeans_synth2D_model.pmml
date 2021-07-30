@@ -2,7 +2,7 @@
 <PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
 	<Header>
 		<Application name="JPMML-SkLearn" version="1.6.18"/>
-		<Timestamp>2021-05-05T18:28:31Z</Timestamp>
+		<Timestamp>2021-07-29T10:30:31Z</Timestamp>
 	</Header>
 	<MiningBuildTask>
 		<Extension>PMMLPipeline(steps=[('estimator', KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=300,
@@ -34,29 +34,29 @@
 		</ComparisonMeasure>
 		<ClusteringField field="x1"/>
 		<ClusteringField field="x2"/>
-		<Cluster id="0" size="11">
-			<Array type="real">0.9665452395211437 0.09743165502710781</Array>
-		</Cluster>
-		<Cluster id="1" size="10">
-			<Array type="real">-0.4736785600269752 0.8582078421994159</Array>
-		</Cluster>
-		<Cluster id="2" size="19">
-			<Array type="real">-0.5333832444069452 0.9911143602301462</Array>
-		</Cluster>
-		<Cluster id="3" size="13">
-			<Array type="real">-0.09203311947042035 -0.819481070303338</Array>
-		</Cluster>
-		<Cluster id="4" size="13">
-			<Array type="real">0.4059204859660815 -0.5625355056694035</Array>
-		</Cluster>
-		<Cluster id="5" size="24">
-			<Array type="real">0.9358335353523185 -0.9704748148089045</Array>
-		</Cluster>
-		<Cluster id="6" size="6">
+		<Cluster id="0" size="19">
 			<Array type="real">-0.49887875403858256 -0.12159746397448401</Array>
 		</Cluster>
-		<Cluster id="7" size="4">
+		<Cluster id="1" size="18">
+			<Array type="real">-0.5889958613479183 0.8783002008197146</Array>
+		</Cluster>
+		<Cluster id="2" size="4">
+			<Array type="real">0.9358335353523185 -0.9704748148089045</Array>
+		</Cluster>
+		<Cluster id="3" size="14">
+			<Array type="real">-0.4301816149386473 0.9759819074822178</Array>
+		</Cluster>
+		<Cluster id="4" size="12">
 			<Array type="real">0.9553370313724853 0.4285636703411482</Array>
+		</Cluster>
+		<Cluster id="5" size="8">
+			<Array type="real">0.9665452395211437 0.09743165502710781</Array>
+		</Cluster>
+		<Cluster id="6" size="8">
+			<Array type="real">-0.09203311947042035 -0.8194810703033382</Array>
+		</Cluster>
+		<Cluster id="7" size="17">
+			<Array type="real">0.40592048596608143 -0.5625355056694034</Array>
 		</Cluster>
 	</ClusteringModel>
 </PMML>

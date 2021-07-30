@@ -29,7 +29,7 @@ DEBUG
 
 python3 pom4_LR_master_pycloudmessenger.py --dataset redwine --verbose 1
 
-python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 0
+python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 0 &
    
 python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 1 &  
 python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 2 &  
