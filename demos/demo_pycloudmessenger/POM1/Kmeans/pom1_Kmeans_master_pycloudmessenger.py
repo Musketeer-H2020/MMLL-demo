@@ -36,6 +36,7 @@ from demo_tools.data_connectors.Load_from_file import Load_From_File as DC
 from demo_tools.mylogging.logger_v1 import Logger
 from demo_tools.evaluation_tools import display, Kmeans_plot, create_folders
 
+from MMLL.aggregators.kmeans_aggregator import Default_Kmeans
 
 # Set up logger
 logging.basicConfig(
@@ -90,7 +91,7 @@ if __name__ == "__main__":
         with open(credentials_filename, 'r') as f:
             credentials = json.load(f)
     except:
-        display('Error - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
+        display('Errohttps://github.com/Musketeer-H2020/MMLLhttps://github.com/Musketeer-H2020/MMLLr - The file musketeer.json is not available, please put it under the following path: "' + os.path.abspath(os.path.join("","../../")) + '"', logger, verbose)
         sys.exit()
 
     display('===========================================', logger, verbose)
@@ -136,6 +137,7 @@ if __name__ == "__main__":
     model_parameters['NC'] = int(task_definition['NC'])
     model_parameters['Nmaxiter'] = int(task_definition['Nmaxiter'])
     model_parameters['tolerance'] = float(task_definition['tolerance'])
+    model_parameters['aggregator'] = Default_Kmeans(int(task_definition['NC']))
     mn.create_model_Master(model_type, model_parameters=model_parameters)
     display('MMLL model %s is ready for training!' % model_type, logger, verbose)
 

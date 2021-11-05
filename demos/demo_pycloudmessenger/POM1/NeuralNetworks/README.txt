@@ -19,7 +19,7 @@ Parameters:
     - id: Integer representing the partition of data to be used by the worker. Each worker should use a different partition, possible values are 0 to 4.
     - normalization: String indicating wether to apply normalization. Possible options are std, minmax or no. By default no normalization is used.
     - implementation: String indicating whether to use gradient_averaging or model_averaging implementation. By default the latter is used.
-    - optimizer: String indicating the type of optimizer to use (only valid when gradient implementation=gradient_descent). By default Stochastic Gradient Descent is used.
+    - optimizer: String indicating the type of optimizer to use (only SGD available for implementation=gradient_descent and Adam, RMSprop or SGD valid when gradient implementation=model_averaging). By default Stochastic Gradient Descent is used.
 
 Important notes:
     - The task_name should be the same for all terminals.

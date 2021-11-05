@@ -22,6 +22,8 @@ import sys, os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' # Disables tensorflow warnings
 import tensorflow as tf
 import onnxruntime
+from sklearn.metrics import accuracy_score
+
 
 # Add higher directory to python modules path.
 sys.path.append("../../../../")
@@ -165,7 +167,7 @@ if __name__ == "__main__":
     onnx_session = onnxruntime.InferenceSession(output_filename_model)
     onnx_inputs = {onnx_session.get_inputs()[0].name: Xtst}
     onnx_output = onnx_session.run(None, onnx_inputs)[0]
-    onnx_output = np.argmax(onnx_output, axis=-1) # Convert to labels
-    err_onnx = np.mean((preds_tst.ravel() - onnx_output.ravel())**2)
-    display('Error in ONNX predictions is %f' %err_onnx, logger, verbose)
+    onnx_output = np.argmax(onnx_output, axis=-1) # Convert to labels    
+    err_onnx = accuracy_score(y,onnx_output)
+    display('Test accuracy in ONNX model is %f' %err_onnx, logger, verbose)
 

@@ -29,6 +29,7 @@ sys.path.append("../../../../")
 # To be imported from MMLL (pip installed)
 from MMLL.nodes.MasterNode import MasterNode
 from MMLL.comms.comms_pycloudmessenger import Comms_master as Comms
+from MMLL.aggregators.aggregator import ModelAveraging
 
 # To be imported from demo_tools
 from demo_tools.task_manager_pycloudmessenger import Task_Manager
@@ -147,6 +148,7 @@ if __name__ == "__main__":
     model_parameters['C'] = float(task_definition['C'])
     model_parameters['NmaxiterGD'] = int(task_definition['NmaxiterGD'])
     model_parameters['eta'] = float(task_definition['eta'])
+    model_parameters['aggregator'] = ModelAveraging() 
     mn.create_model_Master(model_type, model_parameters=model_parameters)
     display('MMLL model %s is ready for training!' % model_type, logger, verbose)
 
