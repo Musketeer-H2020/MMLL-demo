@@ -34,5 +34,47 @@ python3 pom6_LC_worker_pycloudmessenger.py --id 3 --dataset pima --verbose 1 &
 python3 pom6_LC_worker_pycloudmessenger.py --id 4 --dataset pima --verbose 1 & 
 
 
+---------------------
+Train + a posteriori DVE 
+---------------------
+
+python3 pom6_LC_master_pycloudmessenger.py --dataset income_DV --use_dve 1 --dve_weight 1 --verbose 1
+
+python3 pom6_LC_worker_pycloudmessenger.py --id 0 --dataset income_DV --verbose 1 &
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 1 --dataset income_DV --verbose 1 &
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 2 --dataset income_DV --verbose 1 & 
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 3 --dataset income_DV --verbose 1 & 
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 4 --dataset income_DV --verbose 1 & 
+
+
+python3 pom6_LC_master_pycloudmessenger.py --dataset pima_DV --use_dve 1 --dve_weight 1 --verbose 1
+
+python3 pom6_LC_worker_pycloudmessenger.py --id 0 --dataset pima_DV --verbose 1 &
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 1 --dataset pima_DV --verbose 1 &
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 2 --dataset pima_DV --verbose 1 & 
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 3 --dataset pima_DV --verbose 1 & 
+sleep 5
+python3 pom6_LC_worker_pycloudmessenger.py --id 4 --dataset pima_DV --verbose 1 & 
+
+
+---------------------
+With Defenses
+---------------------
+
+python3 pom6_LC_master_pycloudmessenger_aggregator.py --dataset pima --verbose 1
+
+python3 pom6_LC_worker_pycloudmessenger.py --id 0 --dataset pima --verbose 1
+
+python3 pom6_LC_worker_pycloudmessenger.py --id 1 --dataset pima --verbose 1 &
+python3 pom6_LC_worker_pycloudmessenger.py --id 2 --dataset pima --verbose 1 & 
+python3 pom6_LC_worker_pycloudmessenger.py --id 3 --dataset pima --verbose 1 & 
+python3 pom6_LC_worker_pycloudmessenger.py --id 4 --dataset pima --verbose 1 & 
 
 
