@@ -70,7 +70,7 @@ With Defenses
 
 python3 pom6_LC_master_pycloudmessenger_aggregator.py --dataset pima --verbose 1
 
-python3 pom6_LC_worker_pycloudmessenger.py --id 0 --dataset pima --verbose 1
+python3 pom6_LC_worker_pycloudmessenger.py --id 0 --dataset pima --verbose 1 &
 
 python3 pom6_LC_worker_pycloudmessenger.py --id 1 --dataset pima --verbose 1 &
 python3 pom6_LC_worker_pycloudmessenger.py --id 2 --dataset pima --verbose 1 & 

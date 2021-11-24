@@ -38,3 +38,35 @@ python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 4 
 
 python3 pom4_LR_crypto_pycloudmessenger.py --verbose 1 --id 5
 
+
+---------------------
+Train + a posteriori DVE 
+---------------------
+
+python3 pom4_LR_master_pycloudmessenger.py --dataset redwine --verbose 1 --use_dve 1 --dve_weight 0 
+
+python3 pom4_LR_worker_pycloudmessenger.py --id 0 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom4_LR_worker_pycloudmessenger.py --id 1 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom4_LR_worker_pycloudmessenger.py --id 2 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom4_LR_worker_pycloudmessenger.py --id 3 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom4_LR_worker_pycloudmessenger.py --id 4 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom4_LR_crypto_pycloudmessenger.py --verbose 1 --id 5 &
+
+---------------------
+With Defenses
+---------------------
+
+python3 pom4_LR_master_pycloudmessenger_aggregator.py --dataset redwine --verbose 1
+
+python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 0  
+
+python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 1 &
+python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 2 &
+python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 3 &
+python3 pom4_LR_worker_pycloudmessenger.py --dataset redwine --verbose 1 --id 4 &
+python3 pom4_LR_crypto_pycloudmessenger.py --verbose 1 --id 5 

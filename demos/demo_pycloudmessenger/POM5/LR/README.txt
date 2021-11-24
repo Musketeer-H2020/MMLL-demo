@@ -31,3 +31,47 @@ python3 pom5_LR_worker_pycloudmessenger.py --id 2 --dataset redwine --verbose 1 
 python3 pom5_LR_worker_pycloudmessenger.py --id 3 --dataset redwine --verbose 1 &
 python3 pom5_LR_worker_pycloudmessenger.py --id 4 --dataset redwine --verbose 1 &
 
+
+---------------------
+Train + a posteriori DVE 
+---------------------
+
+python3 pom5_LR_master_pycloudmessenger.py --dataset redwine --use_dve 1 --dve_weight 1 --verbose 1
+
+python3 pom5_LR_worker_pycloudmessenger.py --id 0 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 1 --dataset redwine --verbose 1 &
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 2 --dataset redwine --verbose 1 & 
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 3 --dataset redwine --verbose 1 & 
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 4 --dataset redwine --verbose 1 & 
+
+
+python3 pom5_LR_master_pycloudmessenger.py --dataset redwine_DV --use_dve 1 --dve_weight 0 --verbose 1
+
+python3 pom5_LR_worker_pycloudmessenger.py --id 0 --dataset redwine_DV --verbose 1 &
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 1 --dataset redwine_DV --verbose 1 &
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 2 --dataset redwine_DV --verbose 1 & 
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 3 --dataset redwine_DV --verbose 1 & 
+sleep 5
+python3 pom5_LR_worker_pycloudmessenger.py --id 4 --dataset redwine_DV --verbose 1 & 
+
+
+---------------------
+With Defenses
+---------------------
+
+python3 pom5_LR_master_pycloudmessenger_aggregator.py --dataset redwine --verbose 1
+
+python3 pom5_LR_worker_pycloudmessenger.py --id 0 --dataset redwine --verbose 1
+
+python3 pom5_LR_worker_pycloudmessenger.py --id 1 --dataset redwine --verbose 1 &
+python3 pom5_LR_worker_pycloudmessenger.py --id 2 --dataset redwine --verbose 1 &
+python3 pom5_LR_worker_pycloudmessenger.py --id 3 --dataset redwine --verbose 1 &
+python3 pom5_LR_worker_pycloudmessenger.py --id 4 --dataset redwine --verbose 1 &
+

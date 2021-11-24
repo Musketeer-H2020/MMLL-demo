@@ -21,6 +21,20 @@ python3 pom6_MLC_worker_pycloudmessenger.py --id 4 --dataset M-iris --verbose 1
 
 
 ---------------------
+With Defenses
+---------------------
+
+python3 pom6_MLC_master_pycloudmessenger_aggregator.py --dataset M-iris_norm --verbose 1
+
+python3 pom6_MLC_worker_pycloudmessenger.py --id 0 --dataset M-iris_norm --verbose 1 &
+
+python3 pom6_MLC_worker_pycloudmessenger.py --id 1 --dataset M-iris_norm --verbose 1 &
+python3 pom6_MLC_worker_pycloudmessenger.py --id 2 --dataset M-iris_norm --verbose 1 & 
+python3 pom6_MLC_worker_pycloudmessenger.py --id 3 --dataset M-iris_norm --verbose 1 & 
+python3 pom6_MLC_worker_pycloudmessenger.py --id 4 --dataset M-iris_norm --verbose 1 & 
+
+
+---------------------
 DEBUG 
 ---------------------
 
@@ -79,22 +93,8 @@ sleep 5
 python3 pom6_MLC_worker_pycloudmessenger.py --id 4 --dataset M-anuran_DV --verbose 1 & 
 
 
----------------------
-With Defenses
----------------------
 
-python3 pom6_MLC_master_pycloudmessenger_aggregator.py --dataset M-iris_norm --verbose 1
-
-python3 pom6_MLC_worker_pycloudmessenger.py --id 0 --dataset M-iris_norm --verbose 1
-
-python3 pom6_MLC_worker_pycloudmessenger.py --id 1 --dataset M-iris_norm --verbose 1 &
-python3 pom6_MLC_worker_pycloudmessenger.py --id 2 --dataset M-iris_norm --verbose 1 & 
-python3 pom6_MLC_worker_pycloudmessenger.py --id 3 --dataset M-iris_norm --verbose 1 & 
-python3 pom6_MLC_worker_pycloudmessenger.py --id 4 --dataset M-iris_norm --verbose 1 & 
-
-
-
-localflask
+==== with localflask
 
 python3 local_flask_server.py
 
